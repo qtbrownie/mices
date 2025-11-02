@@ -624,135 +624,118 @@
                 artifacts: { currentId: 1, count: 3 }
             };
             
-            // Конфигурация категорий
-            const categories = {
-                'heroes': { frames: null, details: null },
-                'characters': { frames: null, details: null },
-                'artifacts': { frames: null, details: null }
-            };
-            
-            // Инициализация элементов для каждой категории
-            Object.keys(categories).forEach(category => {
-                categories[category].frames = document.querySelectorAll(`.${category}-container .${category.slice(0, -1)}-frame`);
-                categories[category].details = document.querySelectorAll(`.${category}-details`);
-            });
-            
-            // Функция для переключения между элементами
-            function navigate(direction, category, currentId) {
-                const categoryState = state[category];
-                let newId;
-                
-                if (direction === 'next') {
-                    newId = currentId % categoryState.count + 1;
-                } else {
-                    newId = currentId === 1 ? categoryState.count : currentId - 1;
-                }
-                
-                // Обновляем состояние
-                state[category].currentId = newId;
-                
-                // Скрываем все описания текущей категории
-                categories[category].details.forEach(detail => {
+            // Функция для открытия деталей
+            function openDetails(category, id) {
+                // Скрываем все описания
+                document.querySelectorAll('.item-details').forEach(detail => {
                     detail.classList.remove('active');
                 });
                 
-                // Убираем подсветку со всех рамок категории
-                categories[category].frames.forEach(frame => {
+                // Убираем подсветку со всех рамок
+                document.querySelectorAll('.item-frame').forEach(frame => {
                     frame.classList.remove('active');
                 });
                 
                 // Показываем выбранное описание
-                const selectedDetail = document.getElementById(`${category}-details-${newId}`);
+                const selectedDetail = document.getElementById(`${category}-details-${id}`);
                 if (selectedDetail) {
                     selectedDetail.classList.add('active');
                     
                     // Подсвечиваем соответствующую рамку
-                    const correspondingFrame = document.querySelector(`.${category}-container .${category.slice(0, -1)}-frame[data-id="${newId}"]`);
+                    const correspondingFrame = document.querySelector(`.${category}-container .item-frame[data-id="${id}"]`);
                     if (correspondingFrame) {
                         correspondingFrame.classList.add('active');
                     }
+                    
+                    // Обновляем состояние
+                    state[category].currentId = id;
                     
                     // Плавная прокрутка к элементу
                     selectedDetail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }
             }
             
+            // Функция для переключения между элементами
+            function navigate(direction, category) {
+                const categoryState = state[category];
+                let newId;
+                
+                if (direction === 'next') {
+                    newId = categoryState.currentId % categoryState.count + 1;
+                } else {
+                    newId = categoryState.currentId === 1 ? categoryState.count : categoryState.currentId - 1;
+                }
+                
+                openDetails(category, newId);
+            }
+            
             // Функция для закрытия деталей
             function closeDetails(category) {
                 // Скрываем все описания категории
-                categories[category].details.forEach(detail => {
+                document.querySelectorAll(`.${category}-details`).forEach(detail => {
                     detail.classList.remove('active');
                 });
                 
                 // Убираем подсветку со всех рамок категории
-                categories[category].frames.forEach(frame => {
+                document.querySelectorAll(`.${category}-container .item-frame`).forEach(frame => {
                     frame.classList.remove('active');
                 });
             }
             
-            // Обработчики для всех категорий
-            Object.keys(categories).forEach(category => {
-                const frames = categories[category].frames;
-                const details = categories[category].details;
-                
-                // Обработчики для рамок
-                frames.forEach(frame => {
-                    frame.addEventListener('click', function() {
-                        const id = parseInt(this.getAttribute('data-id'));
-                        
-                        // Обновляем состояние
-                        state[category].currentId = id;
-                        
-                        // Скрываем все описания текущей категории
-                        details.forEach(detail => {
-                            detail.classList.remove('active');
-                        });
-                        
-                        // Убираем подсветку со всех рамок категории
-                        frames.forEach(frame => {
-                            frame.classList.remove('active');
-                        });
-                        
-                        // Показываем выбранное описание
-                        const selectedDetail = document.getElementById(`${category}-details-${id}`);
-                        if (selectedDetail) {
-                            selectedDetail.classList.add('active');
-                            this.classList.add('active');
-                            
-                            // Плавная прокрутка к элементу
-                            selectedDetail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                        }
-                    });
+            // Обработчики для героев
+            document.querySelectorAll('.heroes-container .item-frame').forEach(frame => {
+                frame.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    openDetails('heroes', id);
                 });
-                
-                // Обработчики для кнопок навигации
-                details.forEach(detail => {
-                    const prevBtn = detail.querySelector('.nav-btn.prev');
-                    const nextBtn = detail.querySelector('.nav-btn.next');
-                    const closeBtn = detail.querySelector('.close-btn');
-                    const currentId = parseInt(detail.getAttribute('data-id'));
-                    
-                    prevBtn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        navigate('prev', category, state[category].currentId);
-                    });
-                    
-                    nextBtn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        navigate('next', category, state[category].currentId);
-                    });
-                    
-                    closeBtn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        closeDetails(category);
-                    });
+            });
+            
+            // Обработчики для персонажей
+            document.querySelectorAll('.characters-container .item-frame').forEach(frame => {
+                frame.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    openDetails('characters', id);
+                });
+            });
+            
+            // Обработчики для артефактов
+            document.querySelectorAll('.artifacts-container .item-frame').forEach(frame => {
+                frame.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    openDetails('artifacts', id);
+                });
+            });
+            
+            // Обработчики для кнопок навигации
+            document.querySelectorAll('.nav-btn.prev').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const category = this.closest('.item-details').getAttribute('data-category');
+                    navigate('prev', category);
+                });
+            });
+            
+            document.querySelectorAll('.nav-btn.next').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const category = this.closest('.item-details').getAttribute('data-category');
+                    navigate('next', category);
+                });
+            });
+            
+            // Обработчики для кнопок закрытия
+            document.querySelectorAll('.close-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const category = this.closest('.item-details').getAttribute('data-category');
+                    closeDetails(category);
                 });
             });
             
             // Закрытие по клику вне области (опционально)
             document.addEventListener('click', function(e) {
                 if (!e.target.closest('.item-details') && !e.target.closest('.item-frame')) {
-                    Object.keys(categories).forEach(category => {
+                    Object.keys(state).forEach(category => {
                         closeDetails(category);
                     });
                 }
