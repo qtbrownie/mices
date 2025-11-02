@@ -133,7 +133,8 @@
         width: 100%;
     }
     
-    .hero-details, .character-details, .artifact-details {
+    /* Основные контейнеры */
+.hero-details, .character-details, .artifact-details {
     display: none;
     margin-top: 30px;
     background-color: #16213e;
@@ -141,7 +142,7 @@
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
-    position: relative; /* Важно: позиционируем саму рамку */
+    position: relative;
 }
 
 .hero-details.active, .character-details.active, .artifact-details.active {
@@ -151,38 +152,61 @@
 .details-container {
     position: relative;
     width: 100%;
+    z-index: 1; /* Контент выше */
 }
 
-/* Контейнеры для контента */
+/* Контентные блоки */
 .hero-content, .character-content, .artifact-content {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     width: 100%;
-    position: relative; /* Обеспечиваем нормальный поток контента */
-    z-index: 1; /* Контент выше стрелок */
+    position: relative;
 }
 
-/* Стрелки за пределами рамки - фиксированное позиционирование */
-/* Стрелки сбоку от рамки во весь размер */
+.hero-image, .character-image, .artifact-image {
+    flex: 1;
+    min-width: 300px;
+    border: 2px solid #ffcc00;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.hero-image img, .character-image img, .artifact-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.hero-description, .character-description, .artifact-description {
+    flex: 2;
+    min-width: 300px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    line-height: 1.6;
+}
+
+/* Стрелки сбоку от рамки */
 .nav-arrows-outside {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -60px;
-    right: -60px;
+    top: 50%;
+    left: -70px;
+    right: -70px;
+    transform: translateY(-50%);
     display: flex;
     justify-content: space-between;
     pointer-events: none;
-    z-index: 10;
+    z-index: 2;
 }
 
 .nav-arrow-outside {
-    background-color: rgba(255, 204, 0, 0.9);
+    background-color: #ffcc00; /* Непрозрачный желтый */
     color: #1a1a2e;
     border: none;
+    border-radius: 50%;
     width: 50px;
-    height: 100%;
+    height: 50px;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
@@ -191,49 +215,26 @@
     justify-content: center;
     transition: all 0.3s ease;
     pointer-events: all;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 0;
-}
-
-.nav-arrow-outside.prev {
-    border-radius: 10px 0 0 10px;
-}
-
-.nav-arrow-outside.next {
-    border-radius: 0 10px 10px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    opacity: 1; /* Полная непрозрачность */
 }
 
 .nav-arrow-outside:hover {
-    background-color: #ffcc00;
+    background-color: #ffd633; /* Более светлый желтый при наведении */
+    transform: scale(1.1);
     box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
-}
-
-/* Обеспечиваем отступ для контента */
-.details-container {
-    position: relative;
-    width: 100%;
-    padding: 0 20px; /* Добавляем отступы по бокам */
-}
-
-/* Убираем отрицательные margin */
-.nav-arrow-outside.prev,
-.nav-arrow-outside.next {
-    margin: 0;
 }
 
 @media (max-width: 768px) {
     .nav-arrows-outside {
-        left: -40px;
-        right: -40px;
+        left: -50px;
+        right: -50px;
     }
     
     .nav-arrow-outside {
         width: 40px;
+        height: 40px;
         font-size: 22px;
-    }
-    
-    .details-container {
-        padding: 0 15px;
     }
 }
 </style>
