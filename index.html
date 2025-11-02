@@ -145,9 +145,15 @@
     }
     
     .hero-details.active, .character-details.active, .artifact-details.active {
+        display: block;
+    }
+    
+    /* Контейнеры для контента */
+    .hero-content, .character-content, .artifact-content {
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
+        width: 100%;
     }
     
     .hero-image, .character-image, .artifact-image {
@@ -183,8 +189,8 @@
     .nav-arrows-outside {
         position: absolute;
         top: 50%;
-        left: -80px;  /* Увеличиваем отступ от рамки */
-        right: -80px; /* Увеличиваем отступ от рамки */
+        left: -80px;
+        right: -80px;
         transform: translateY(-50%);
         display: flex;
         justify-content: space-between;
@@ -214,6 +220,32 @@
         background-color: #ffcc00;
         transform: scale(1.1);
         box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+    }
+    
+    /* Убираем старые стрелки внутри рамки */
+    .nav-arrows {
+        display: none;
+    }
+    
+    @media (max-width: 768px) {
+        .hero-content, .character-content, .artifact-content {
+            flex-direction: column;
+        }
+        
+        .hero-image, .character-image, .artifact-image {
+            min-width: 100%;
+        }
+        
+        .nav-arrows-outside {
+            left: -50px;
+            right: -50px;
+        }
+        
+        .nav-arrow-outside {
+            width: 40px;
+            height: 40px;
+            font-size: 22px;
+        }
     }
 </style>
 </head>
@@ -268,15 +300,17 @@
             <button class="nav-arrow-outside prev prev-hero">‹</button>
             <button class="nav-arrow-outside next next-hero">›</button>
         </div>
-        <div class="hero-image">
-            <img src="https://via.placeholder.com/400x500/4a4a8a/ffffff?text=Брут" alt="Брут">
-        </div>
-        <div class="hero-description">
-            <h3>Брут</h3>
-            <p><strong>Статус:</strong> Жив</p>
-            <p>Сильный и выносливый воин, мастер ближнего боя. Обладает высокой физической силой и выносливостью, что позволяет ему выдерживать серьезные повреждения в бою.</p>
-            <p>С детства тренировался в искусстве владения мечом и щитом. Участвовал во многих битвах и заслужил репутацию непобедимого бойца.</p>
-            <p>Несмотря на суровый внешний вид, обладает чувством справедливости и всегда защищает слабых.</p>
+        <div class="hero-content">
+            <div class="hero-image">
+                <img src="https://via.placeholder.com/400x500/4a4a8a/ffffff?text=Брут" alt="Брут">
+            </div>
+            <div class="hero-description">
+                <h3>Брут</h3>
+                <p><strong>Статус:</strong> Жив</p>
+                <p>Сильный и выносливый воин, мастер ближнего боя. Обладает высокой физической силой и выносливостью, что позволяет ему выдерживать серьезные повреждения в бою.</p>
+                <p>С детства тренировался в искусстве владения мечом и щитом. Участвовал во многих битвах и заслужил репутацию непобедимого бойца.</p>
+                <p>Несмотря на суровый внешний вид, обладает чувством справедливости и всегда защищает слабых.</p>
+            </div>
         </div>
     </div>
 </div>
