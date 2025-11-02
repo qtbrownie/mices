@@ -80,7 +80,7 @@
             font-size: 12px;
         }
         
-        .hero-status, .character-status, .artifact-type {
+        .hero-status, .character-status {
             position: absolute;
             bottom: 0;
             left: 0;
@@ -89,6 +89,18 @@
             padding: 3px;
             font-size: 11px;
             font-weight: bold;
+        }
+        
+        .artifact-type {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding: 3px;
+            font-size: 11px;
+            background-color: rgba(76, 175, 80, 0.8);
+            color: white;
         }
         
         .status-alive {
@@ -122,28 +134,6 @@
             gap: 20px;
         }
         
-        .hero-title, .character-title, .artifact-title {
-            width: 100%;
-            text-align: center;
-            font-size: 24px;
-            color: #ffcc00;
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 2px solid #ffcc00;
-            border-radius: 10px;
-            background-color: rgba(0, 0, 0, 0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .hero-status-badge, .character-status-badge, .artifact-type-badge {
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-        
         .hero-image, .character-image, .artifact-image {
             flex: 1;
             min-width: 300px;
@@ -167,6 +157,12 @@
             line-height: 1.6;
         }
         
+        .hero-description h3, .character-description h3, .artifact-description h3 {
+            color: #ffcc00;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        
         @media (max-width: 768px) {
             .hero-details.active, .character-details.active, .artifact-details.active {
                 flex-direction: column;
@@ -175,17 +171,12 @@
             .hero-image, .character-image, .artifact-image {
                 min-width: 100%;
             }
-            
-            .hero-title, .character-title, .artifact-title {
-                flex-direction: column;
-                gap: 10px;
-            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Мыши в канаве</h1>
+        <h1>Мир Фэнтези</h1>
         
         <h2>Герои</h2>
         <div class="heroes-container">
@@ -226,16 +217,14 @@
             </div>
         </div>
         
-        <!-- Детали героев -->
+        <!-- Детали героев (без рамки с именем и статусом) -->
         <div id="hero-details-1" class="hero-details">
-            <div class="hero-title">
-                <span>Брут</span>
-                <div class="hero-status-badge status-alive">Жив</div>
-            </div>
             <div class="hero-image">
                 <img src="https://via.placeholder.com/400x500/4a4a8a/ffffff?text=Брут" alt="Брут">
             </div>
             <div class="hero-description">
+                <h3>Брут</h3>
+                <p><strong>Статус:</strong> Жив</p>
                 <p>Сильный и выносливый воин, мастер ближнего боя. Обладает высокой физической силой и выносливостью, что позволяет ему выдерживать серьезные повреждения в бою.</p>
                 <p>С детства тренировался в искусстве владения мечом и щитом. Участвовал во многих битвах и заслужил репутацию непобедимого бойца.</p>
                 <p>Несмотря на суровый внешний вид, обладает чувством справедливости и всегда защищает слабых.</p>
@@ -243,14 +232,12 @@
         </div>
         
         <div id="hero-details-2" class="hero-details">
-            <div class="hero-title">
-                <span>Влада</span>
-                <div class="hero-status-badge status-alive">Жив</div>
-            </div>
             <div class="hero-image">
                 <img src="https://via.placeholder.com/400x500/8a4a4a/ffffff?text=Влада" alt="Влада">
             </div>
             <div class="hero-description">
+                <h3>Влада</h3>
+                <p><strong>Статус:</strong> Жив</p>
                 <p>Таинственная воительница, владеющая древними боевыми искусствами. Её прошлое окутано тайной, и лишь немногие знают о её истинной силе.</p>
                 <p>Обладает невероятной скоростью и ловкостью, что делает её смертельно опасным противником в ближнем бою.</p>
                 <p>Несмотря на свою закрытость, верна своим союзникам и всегда выполняет данные обещания.</p>
@@ -258,17 +245,67 @@
         </div>
         
         <div id="hero-details-3" class="hero-details">
-            <div class="hero-title">
-                <span>Амьен</span>
-                <div class="hero-status-badge status-alive">Жив</div>
-            </div>
             <div class="hero-image">
                 <img src="https://via.placeholder.com/400x500/4a8a4a/ffffff?text=Амьен" alt="Амьен">
             </div>
             <div class="hero-description">
+                <h3>Амьен</h3>
+                <p><strong>Статус:</strong> Жив</p>
                 <p>Мудрый стратег и искусный дипломат. Обладает глубокими знаниями истории и тактики, что делает его незаменимым советником.</p>
                 <p>Несмотря на то, что не является сильным воином, его умение предвидеть действия противника не раз спасало его союзников от поражения.</p>
                 <p>Известен своей способностью находить мирные решения даже в самых сложных конфликтах.</p>
+            </div>
+        </div>
+        
+        <div id="hero-details-4" class="hero-details">
+            <div class="hero-image">
+                <img src="https://via.placeholder.com/400x500/5a5a5a/ffffff?text=???" alt="???">
+            </div>
+            <div class="hero-description">
+                <h3>Неизвестный Герой</h3>
+                <p><strong>Статус:</strong> Мёртв</p>
+                <p>Личность этого героя окутана тайной. Известно лишь, что он пал в битве с силами тьмы, защищая невинных.</p>
+                <p>По слухам, он обладал невероятной силой, но предпочитал оставаться в тени, действуя как тайный защитник королевства.</p>
+                <p>Его истинное имя и происхождение остаются загадкой, которую, возможно, уже никогда не разгадать.</p>
+            </div>
+        </div>
+        
+        <div id="hero-details-5" class="hero-details">
+            <div class="hero-image">
+                <img src="https://via.placeholder.com/400x500/6a6a6a/ffffff?text=???" alt="???">
+            </div>
+            <div class="hero-description">
+                <h3>Неизвестный Герой</h3>
+                <p><strong>Статус:</strong> Мёртв</p>
+                <p>Этот загадочный воин погиб при загадочных обстоятельствах во время экспедиции в Забытые земли.</p>
+                <p>Говорят, он обладал способностью управлять стихиями и мог одним движением руки вызывать бурю или землетрясение.</p>
+                <p>Его смерть до сих пор остается предметом споров среди историков и магов.</p>
+            </div>
+        </div>
+        
+        <div id="hero-details-6" class="hero-details">
+            <div class="hero-image">
+                <img src="https://via.placeholder.com/400x500/7a7a7a/ffffff?text=???" alt="???">
+            </div>
+            <div class="hero-description">
+                <h3>Неизвестный Герой</h3>
+                <p><strong>Статус:</strong> Жив</p>
+                <p>Тайный агент, работающий в тени для защиты королевства от внутренних угроз.</p>
+                <p>Обладает мастерством скрытности и может проникнуть куда угодно, не оставляя следов.</p>
+                <p>Его истинная личность известна лишь нескольким доверенным лицам при дворе.</p>
+            </div>
+        </div>
+        
+        <div id="hero-details-7" class="hero-details">
+            <div class="hero-image">
+                <img src="https://via.placeholder.com/400x500/8a8a8a/ffffff?text=???" alt="???">
+            </div>
+            <div class="hero-description">
+                <h3>Неизвестный Герой</h3>
+                <p><strong>Статус:</strong> Жив</p>
+                <p>Мастер иллюзий и психологических warfare. Может создавать настолько реалистичные иллюзии, что жертвы теряют связь с реальностью.</p>
+                <p>Работает в качестве информатора и шпиона, добывая ценные сведения для сил света.</p>
+                <p>Его методы часто вызывают споры, но результаты говорят сами за себя.</p>
             </div>
         </div>
         
@@ -386,35 +423,175 @@
             </div>
         </div>
         
+        <div id="character-details-4" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/8a8a4a/ffffff?text=Топаз" alt="Топаз">
+            </div>
+            <div class="character-description">
+                <h3>Топаз</h3>
+                <p><strong>Статус:</strong> Жив</p>
+                <p>Посвятивший себя служению божеству, жрец обладает способностью исцелять раны и изгонять нечисть.</p>
+                <p>Проводит много времени в молитвах и изучении священных текстов. Его вера дает ему силу противостоять темным силам.</p>
+                <p>Несмотря на мирную профессию, при необходимости может использовать божественную магию для защиты себя и своих союзников.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-5" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/8a4a7a/ffffff?text=Руби" alt="Руби">
+            </div>
+            <div class="character-description">
+                <h3>Руби</h3>
+                <p><strong>Статус:</strong> Жив</p>
+                <p>Искусная фехтовальщица с горячим темпераментом. Её меч движется так быстро, что противники видят лишь алую полосу.</p>
+                <p>Выросла в южном королевстве, где с детства обучалась искусству владения клинком.</p>
+                <p>Известна своей вспыльчивостью, но также и безграничной преданностью друзьям.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-6" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/4a7a8a/ffffff?text=Эми" alt="Эми">
+            </div>
+            <div class="character-description">
+                <h3>Эми</h3>
+                <p><strong>Статус:</strong> Мёртв</p>
+                <p>Тихий и скромный лекарь, обладавший даром исцеления. Могла лечить даже самые страшные раны.</p>
+                <p>Погибла, защищая раненых во время нападения на госпиталь.</p>
+                <p>Её смерть стала огромной потерей для всех, кто знал её доброту и самоотверженность.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-7" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/7a8a4a/ffffff?text=Агат" alt="Агат">
+            </div>
+            <div class="character-description">
+                <h3>Агат</h3>
+                <p><strong>Статус:</strong> Неизвестно</p>
+                <p>Загадочный торговец информацией, появляющийся только тогда, когда это нужно.</p>
+                <p>Владеет сетью шпионов по всему континенту и знает практически все, что происходит в королевстве.</p>
+                <p>Исчез после того, как продал ценную информацию о планах темного лорда.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-8" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/5a5a5a/ffffff?text=???" alt="???">
+            </div>
+            <div class="character-description">
+                <h3>Неизвестный Персонаж</h3>
+                <p><strong>Статус:</strong> Неизвестно</p>
+                <p>Личность этого персонажа остается загадкой. Некоторые считают, что это переодетый принц, другие - могущественный маг в изгнании.</p>
+                <p>Появляется только в критические моменты, чтобы оказать помощь, а затем исчезает без следа.</p>
+                <p>Его мотивы и цели остаются неизвестными.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-9" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/6a6a6a/ffffff?text=???" alt="???">
+            </div>
+            <div class="character-description">
+                <h3>Неизвестный Персонаж</h3>
+                <p><strong>Статус:</strong> Неизвестно</p>
+                <p>Тень, мелькающая в коридорах дворца. Никто не знает, кто он и что ему нужно.</p>
+                <p>Некоторые слуги клянутся, что видели его разговаривающим с призраками прошлых правителей.</p>
+                <p>Его существование ставит больше вопросов, чем дает ответов.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-10" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/8a6a4a/ffffff?text=Алиса" alt="Алиса">
+            </div>
+            <div class="character-description">
+                <h3>Алиса</h3>
+                <p><strong>Статус:</strong> Жив</p>
+                <p>Юная принцесса, обладающая даром предвидения. Её сны часто сбываются, что делает её ценной советницей при дворе.</p>
+                <p>Несмотря на молодость, обладает мудростью, недоступной многим взрослым.</p>
+                <p>Её способности вызывают как восхищение, так и опасения среди придворных.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-11" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/4a6a8a/ffffff?text=Бен" alt="Бен">
+            </div>
+            <div class="character-description">
+                <h3>Бен</h3>
+                <p><strong>Статус:</strong> Мёртв</p>
+                <p>Верный оруженосец, мечтавший стать рыцарем. Погиб, защищая своего господина от заговорщиков.</p>
+                <p>Несмотря на молодость, проявлял невероятную храбрость и преданность.</p>
+                <p>Его смерть стала трагедией для всех, кто знал этого доброго и отважного юношу.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-12" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/8a8a6a/ffffff?text=Циркон" alt="Циркон">
+            </div>
+            <div class="character-description">
+                <h3>Циркон</h3>
+                <p><strong>Статус:</strong> Жив</p>
+                <p>Старый и мудрый советник, служивший при дворе трех королей. Его знания истории и политики не имеют равных.</p>
+                <p>Несмотря на почтенный возраст, обладает острым умом и прекрасной памятью.</p>
+                <p>Многие считают его настоящей опорой королевства.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-13" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/4a4a6a/ffffff?text=Сапфир" alt="Сапфир">
+            </div>
+            <div class="character-description">
+                <h3>Сапфир</h3>
+                <p><strong>Статус:</strong> Неизвестно</p>
+                <p>Таинственная жрица древнего культа, исчезнувшая во время ритуала призыва.</p>
+                <p>Говорили, что она могла общаться с духами стихий и предсказывать будущее по звездам.</p>
+                <p>Её исчезновение до сих пор остается одной из величайших загадок королевства.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-14" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/6a4a8a/ffffff?text=Элиот" alt="Элиот">
+            </div>
+            <div class="character-description">
+                <h3>Элиот</h3>
+                <p><strong>Статус:</strong> Жив</p>
+                <p>Блестящий тактик и стратег, чьи планы не раз спасали королевство от invasions.</p>
+                <p>Обладает уникальной способностью предугадывать действия противника и разрабатывать контрстратегии.</p>
+                <p>Несмотря на молодость, уже успел прославиться как один из лучших умов королевства.</p>
+            </div>
+        </div>
+        
         <h2>Артефакты</h2>
         <div class="artifacts-container">
             <div class="artifact-frame" data-id="1">
                 <img src="https://via.placeholder.com/120x150/cc66ff/ffffff?text=Лапка" alt="Бриллиантовая Лапка">
                 <div class="artifact-name">Бриллиантовая Лапка</div>
-                <div class="artifact-type status-alive">Артефакт</div>
+                <div class="artifact-type">Артефакт</div>
             </div>
             <div class="artifact-frame" data-id="2">
                 <img src="https://via.placeholder.com/120x150/66ccff/ffffff?text=Лотос" alt="Лотос Льда">
                 <div class="artifact-name">Лотос Льда</div>
-                <div class="artifact-type status-alive">Артефакт</div>
+                <div class="artifact-type">Артефакт</div>
             </div>
             <div class="artifact-frame" data-id="3">
                 <img src="https://via.placeholder.com/120x150/ff6666/ffffff?text=Кинжал" alt="Огненный кинжал">
                 <div class="artifact-name">Огненный кинжал</div>
-                <div class="artifact-type status-alive">Артефакт</div>
+                <div class="artifact-type">Артефакт</div>
             </div>
         </div>
         
-        <!-- Детали артефактов -->
+        <!-- Детали артефактов (без рамки с именем) -->
         <div id="artifact-details-1" class="artifact-details">
-            <div class="artifact-title">
-                <span>Бриллиантовая Лапка</span>
-                <div class="artifact-type-badge status-alive">Артефакт</div>
-            </div>
             <div class="artifact-image">
                 <img src="https://via.placeholder.com/400x500/cc66ff/ffffff?text=Бриллиантовая+Лапка" alt="Бриллиантовая Лапка">
             </div>
             <div class="artifact-description">
+                <h3>Бриллиантовая Лапка</h3>
                 <p>Таинственный артефакт, созданный из чистейшего бриллианта в форме кошачьей лапки. Обладает способностью приносить удачу своему владельцу.</p>
                 <p>Согласно легенде, этот артефакт был создан древними магами для королевы, которая потеряла своего любимого кота.</p>
                 <p>Обладает способностью увеличивать шанс на успех в любых начинаниях и защищает от неудач.</p>
@@ -422,14 +599,11 @@
         </div>
         
         <div id="artifact-details-2" class="artifact-details">
-            <div class="artifact-title">
-                <span>Лотос Льда</span>
-                <div class="artifact-type-badge status-alive">Артефакт</div>
-            </div>
             <div class="artifact-image">
                 <img src="https://via.placeholder.com/400x500/66ccff/ffffff?text=Лотос+Льда" alt="Лотос Льда">
             </div>
             <div class="artifact-description">
+                <h3>Лотос Льда</h3>
                 <p>Великолепный цветок, вырезанный из вечного льда. Никогда не тает и излучает мягкий голубой свет.</p>
                 <p>Говорят, что этот лотос был создан богиней зимы для защиты мира от разрушительного пламени.</p>
                 <p>Обладает способностью замораживать всё вокруг и создавать защитные ледяные барьеры.</p>
@@ -437,14 +611,11 @@
         </div>
         
         <div id="artifact-details-3" class="artifact-details">
-            <div class="artifact-title">
-                <span>Огненный кинжал</span>
-                <div class="artifact-type-badge status-alive">Артефакт</div>
-            </div>
             <div class="artifact-image">
                 <img src="https://via.placeholder.com/400x500/ff6666/ffffff?text=Огненный+кинжал" alt="Огненный кинжал">
             </div>
             <div class="artifact-description">
+                <h3>Огненный кинжал</h3>
                 <p>Древний кинжал, лезвие которого пылает вечным огнем. Никогда не остывает и обжигает при прикосновении.</p>
                 <p>Согласно преданию, этот кинжал был выкован в сердце вулкана повелителем огненных демонов.</p>
                 <p>Обладает способностью наносить огненный урон и поджигать противников. Также может растопить любой лед.</p>
