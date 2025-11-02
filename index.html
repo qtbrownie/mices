@@ -45,7 +45,7 @@
             margin-bottom: 30px;
         }
         
-        .item-frame {
+        .hero-frame, .character-frame, .artifact-frame {
             width: 120px;
             height: 150px;
             border: 3px solid #ffcc00;
@@ -57,18 +57,12 @@
             background-color: #16213e;
         }
         
-        .item-frame:hover {
+        .hero-frame:hover, .character-frame:hover, .artifact-frame:hover {
             transform: scale(1.05);
             box-shadow: 0 0 15px rgba(255, 204, 0, 0.7);
         }
         
-        .item-frame.active {
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.9);
-            border-color: #ffdd44;
-            transform: scale(1.05);
-        }
-        
-        .item-frame img {
+        .hero-frame img, .character-frame img, .artifact-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -97,6 +91,18 @@
             font-weight: bold;
         }
         
+        .artifact-type {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding: 3px;
+            font-size: 11px;
+            background-color: rgba(76, 175, 80, 0.8);
+            color: white;
+        }
+        
         .status-alive {
             background-color: rgba(76, 175, 80, 0.8);
             color: white;
@@ -112,7 +118,7 @@
             color: white;
         }
         
-        .item-details {
+        .hero-details, .character-details, .artifact-details {
             display: none;
             margin-top: 30px;
             background-color: #16213e;
@@ -120,71 +126,12 @@
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
-            position: relative;
         }
         
-        .item-details.active {
+        .hero-details.active, .character-details.active, .artifact-details.active {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
-        }
-        
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(255, 204, 0, 0.8);
-            color: #1a1a2e;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-        
-        .nav-btn:hover {
-            background-color: #ffcc00;
-            transform: translateY(-50%) scale(1.1);
-        }
-        
-        .nav-btn.prev {
-            left: 10px;
-        }
-        
-        .nav-btn.next {
-            right: 10px;
-        }
-        
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 204, 0, 0.8);
-            color: #1a1a2e;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            z-index: 11;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        
-        .close-btn:hover {
-            background: #ffcc00;
-            transform: scale(1.1);
         }
         
         .hero-image, .character-image, .artifact-image {
@@ -193,7 +140,6 @@
             border: 2px solid #ffcc00;
             border-radius: 10px;
             overflow: hidden;
-            position: relative;
         }
         
         .hero-image img, .character-image img, .artifact-image img {
@@ -218,55 +164,12 @@
         }
         
         @media (max-width: 768px) {
-            .item-details.active {
+            .hero-details.active, .character-details.active, .artifact-details.active {
                 flex-direction: column;
             }
             
             .hero-image, .character-image, .artifact-image {
                 min-width: 100%;
-            }
-            
-            .nav-btn {
-                width: 35px;
-                height: 35px;
-                font-size: 16px;
-            }
-            
-            /* Улучшения для мобильных устройств */
-            .nav-btn.prev {
-                left: 5px;
-                top: 50%;
-            }
-            
-            .nav-btn.next {
-                right: 5px;
-                top: 50%;
-            }
-            
-            .close-btn {
-                top: 5px;
-                right: 5px;
-                width: 25px;
-                height: 25px;
-                font-size: 14px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .nav-btn {
-                width: 30px;
-                height: 30px;
-                font-size: 14px;
-            }
-            
-            .item-frame {
-                width: 100px;
-                height: 130px;
-            }
-            
-            .hero-name, .character-name, .artifact-name {
-                font-size: 11px;
-                bottom: 15px;
             }
         }
     </style>
@@ -277,50 +180,47 @@
         
         <h2>Герои</h2>
         <div class="heroes-container">
-            <div class="hero-frame item-frame" data-id="1">
-                <img src="https://via.placeholder.com/120x150/4a4a8a/ffffff?text=Брут" alt="Портрет воина Брута">
+            <div class="hero-frame" data-id="1">
+                <img src="https://via.placeholder.com/120x150/4a4a8a/ffffff?text=Брут" alt="Брут">
                 <div class="hero-name">Брут</div>
                 <div class="hero-status status-alive">Жив</div>
             </div>
-            <div class="hero-frame item-frame" data-id="2">
-                <img src="https://via.placeholder.com/120x150/8a4a4a/ffffff?text=Влада" alt="Портрет воительницы Влады">
+            <div class="hero-frame" data-id="2">
+                <img src="https://via.placeholder.com/120x150/8a4a4a/ffffff?text=Влада" alt="Влада">
                 <div class="hero-name">Влада</div>
                 <div class="hero-status status-alive">Жив</div>
             </div>
-            <div class="hero-frame item-frame" data-id="3">
-                <img src="https://via.placeholder.com/120x150/4a8a4a/ffffff?text=Амьен" alt="Портрет стратега Амьена">
+            <div class="hero-frame" data-id="3">
+                <img src="https://via.placeholder.com/120x150/4a8a4a/ffffff?text=Амьен" alt="Амьен">
                 <div class="hero-name">Амьен</div>
                 <div class="hero-status status-alive">Жив</div>
             </div>
-            <div class="hero-frame item-frame" data-id="4">
-                <img src="https://via.placeholder.com/120x150/5a5a5a/ffffff?text=???" alt="Неизвестный герой, личность загадочна">
+            <div class="hero-frame" data-id="4">
+                <img src="https://via.placeholder.com/120x150/5a5a5a/ffffff?text=???" alt="???">
                 <div class="hero-name">???</div>
                 <div class="hero-status status-dead">Мёртв</div>
             </div>
-            <div class="hero-frame item-frame" data-id="5">
-                <img src="https://via.placeholder.com/120x150/6a6a6a/ffffff?text=???" alt="Неизвестный герой, личность загадочна">
+            <div class="hero-frame" data-id="5">
+                <img src="https://via.placeholder.com/120x150/6a6a6a/ffffff?text=???" alt="???">
                 <div class="hero-name">???</div>
                 <div class="hero-status status-dead">Мёртв</div>
             </div>
-            <div class="hero-frame item-frame" data-id="6">
-                <img src="https://via.placeholder.com/120x150/7a7a7a/ffffff?text=???" alt="Неизвестный герой, личность загадочна">
+            <div class="hero-frame" data-id="6">
+                <img src="https://via.placeholder.com/120x150/7a7a7a/ffffff?text=???" alt="???">
                 <div class="hero-name">???</div>
                 <div class="hero-status status-alive">Жив</div>
             </div>
-            <div class="hero-frame item-frame" data-id="7">
-                <img src="https://via.placeholder.com/120x150/8a8a8a/ffffff?text=???" alt="Неизвестный герой, личность загадочна">
+            <div class="hero-frame" data-id="7">
+                <img src="https://via.placeholder.com/120x150/8a8a8a/ffffff?text=???" alt="???">
                 <div class="hero-name">???</div>
                 <div class="hero-status status-alive">Жив</div>
             </div>
         </div>
         
-        <!-- Детали героев -->
-        <div id="hero-details-1" class="hero-details item-details" data-category="heroes" data-id="1">
-            <button class="nav-btn prev">←</button>
-            <button class="nav-btn next">→</button>
-            <button class="close-btn">✕</button>
+        <!-- Детали героев (без рамки с именем и статусом) -->
+        <div id="hero-details-1" class="hero-details">
             <div class="hero-image">
-                <img src="https://via.placeholder.com/400x500/4a4a8a/ffffff?text=Брут" alt="Детальный портрет воина Брута">
+                <img src="https://via.placeholder.com/400x500/4a4a8a/ffffff?text=Брут" alt="Брут">
             </div>
             <div class="hero-description">
                 <h3>Брут</h3>
@@ -331,12 +231,9 @@
             </div>
         </div>
         
-        <div id="hero-details-2" class="hero-details item-details" data-category="heroes" data-id="2">
-            <button class="nav-btn prev">←</button>
-            <button class="nav-btn next">→</button>
-            <button class="close-btn">✕</button>
+        <div id="hero-details-2" class="hero-details">
             <div class="hero-image">
-                <img src="https://via.placeholder.com/400x500/8a4a4a/ffffff?text=Влада" alt="Детальный портрет воительницы Влады">
+                <img src="https://via.placeholder.com/400x500/8a4a4a/ffffff?text=Влада" alt="Влада">
             </div>
             <div class="hero-description">
                 <h3>Влада</h3>
@@ -347,12 +244,9 @@
             </div>
         </div>
         
-        <div id="hero-details-3" class="hero-details item-details" data-category="heroes" data-id="3">
-            <button class="nav-btn prev">←</button>
-            <button class="nav-btn next">→</button>
-            <button class="close-btn">✕</button>
+        <div id="hero-details-3" class="hero-details">
             <div class="hero-image">
-                <img src="https://via.placeholder.com/400x500/4a8a4a/ffffff?text=Амьен" alt="Детальный портрет стратега Амьена">
+                <img src="https://via.placeholder.com/400x500/4a8a4a/ffffff?text=Амьен" alt="Амьен">
             </div>
             <div class="hero-description">
                 <h3>Амьен</h3>
@@ -363,12 +257,9 @@
             </div>
         </div>
         
-        <div id="hero-details-4" class="hero-details item-details" data-category="heroes" data-id="4">
-            <button class="nav-btn prev">←</button>
-            <button class="nav-btn next">→</button>
-            <button class="close-btn">✕</button>
+        <div id="hero-details-4" class="hero-details">
             <div class="hero-image">
-                <img src="https://via.placeholder.com/400x500/5a5a5a/ffffff?text=???" alt="Неизвестный герой, павший в битве">
+                <img src="https://via.placeholder.com/400x500/5a5a5a/ffffff?text=???" alt="???">
             </div>
             <div class="hero-description">
                 <h3>Неизвестный Герой</h3>
@@ -379,12 +270,9 @@
             </div>
         </div>
         
-        <div id="hero-details-5" class="hero-details item-details" data-category="heroes" data-id="5">
-            <button class="nav-btn prev">←</button>
-            <button class="nav-btn next">→</button>
-            <button class="close-btn">✕</button>
+        <div id="hero-details-5" class="hero-details">
             <div class="hero-image">
-                <img src="https://via.placeholder.com/400x500/6a6a6a/ffffff?text=???" alt="Неизвестный герой, погибший при загадочных обстоятельствах">
+                <img src="https://via.placeholder.com/400x500/6a6a6a/ffffff?text=???" alt="???">
             </div>
             <div class="hero-description">
                 <h3>Неизвестный Герой</h3>
@@ -395,12 +283,9 @@
             </div>
         </div>
         
-        <div id="hero-details-6" class="hero-details item-details" data-category="heroes" data-id="6">
-            <button class="nav-btn prev">←</button>
-            <button class="nav-btn next">→</button>
-            <button class="close-btn">✕</button>
+        <div id="hero-details-6" class="hero-details">
             <div class="hero-image">
-                <img src="https://via.placeholder.com/400x500/7a7a7a/ffffff?text=???" alt="Тайный агент, работающий в тени">
+                <img src="https://via.placeholder.com/400x500/7a7a7a/ffffff?text=???" alt="???">
             </div>
             <div class="hero-description">
                 <h3>Неизвестный Герой</h3>
@@ -411,17 +296,14 @@
             </div>
         </div>
         
-        <div id="hero-details-7" class="hero-details item-details" data-category="heroes" data-id="7">
-            <button class="nav-btn prev">←</button>
-            <button class="nav-btn next">→</button>
-            <button class="close-btn">✕</button>
+        <div id="hero-details-7" class="hero-details">
             <div class="hero-image">
-                <img src="https://via.placeholder.com/400x500/8a8a8a/ffffff?text=???" alt="Мастер иллюзий и психологической войны">
+                <img src="https://via.placeholder.com/400x500/8a8a8a/ffffff?text=???" alt="???">
             </div>
             <div class="hero-description">
                 <h3>Неизвестный Герой</h3>
                 <p><strong>Статус:</strong> Жив</p>
-                <p>Мастер иллюзий и психологической warfare. Может создавать настолько реалистичные иллюзии, что жертвы теряют связь с реальностью.</p>
+                <p>Мастер иллюзий и психологических warfare. Может создавать настолько реалистичные иллюзии, что жертвы теряют связь с реальностью.</p>
                 <p>Работает в качестве информатора и шпиона, добывая ценные сведения для сил света.</p>
                 <p>Его методы часто вызывают споры, но результаты говорят сами за себя.</p>
             </div>
@@ -429,85 +311,82 @@
         
         <h2>Персонажи</h2>
         <div class="characters-container">
-            <div class="character-frame item-frame" data-id="1">
-                <img src="https://via.placeholder.com/120x150/4a4a8a/ffffff?text=Толик" alt="Портрет демона Толика">
+            <div class="character-frame" data-id="1">
+                <img src="https://via.placeholder.com/120x150/4a4a8a/ffffff?text=Толик" alt="Толик">
                 <div class="character-name">Толик</div>
                 <div class="character-status status-alive">Жив</div>
             </div>
-            <div class="character-frame item-frame" data-id="2">
-                <img src="https://via.placeholder.com/120x150/8a4a4a/ffffff?text=Жан" alt="Портрет волшебника Жана">
+            <div class="character-frame" data-id="2">
+                <img src="https://via.placeholder.com/120x150/8a4a4a/ffffff?text=Жан" alt="Жан">
                 <div class="character-name">Жан</div>
                 <div class="character-status status-dead">Мёртв</div>
             </div>
-            <div class="character-frame item-frame" data-id="3">
-                <img src="https://via.placeholder.com/120x150/4a8a4a/ffffff?text=Авантюрин" alt="Портрет лучника Авантюрина">
+            <div class="character-frame" data-id="3">
+                <img src="https://via.placeholder.com/120x150/4a8a4a/ffffff?text=Авантюрин" alt="Авантюрин">
                 <div class="character-name">Авантюрин</div>
                 <div class="character-status status-unknown">Неизвестно</div>
             </div>
-            <div class="character-frame item-frame" data-id="4">
-                <img src="https://via.placeholder.com/120x150/8a8a4a/ffffff?text=Топаз" alt="Портрет жреца Топаза">
+            <div class="character-frame" data-id="4">
+                <img src="https://via.placeholder.com/120x150/8a8a4a/ffffff?text=Топаз" alt="Топаз">
                 <div class="character-name">Топаз</div>
                 <div class="character-status status-alive">Жив</div>
             </div>
-            <div class="character-frame item-frame" data-id="5">
-                <img src="https://via.placeholder.com/120x150/8a4a7a/ffffff?text=Руби" alt="Портрет фехтовальщицы Руби">
+            <div class="character-frame" data-id="5">
+                <img src="https://via.placeholder.com/120x150/8a4a7a/ffffff?text=Руби" alt="Руби">
                 <div class="character-name">Руби</div>
                 <div class="character-status status-alive">Жив</div>
             </div>
-            <div class="character-frame item-frame" data-id="6">
-                <img src="https://via.placeholder.com/120x150/4a7a8a/ffffff?text=Эми" alt="Портрет лекаря Эми">
+            <div class="character-frame" data-id="6">
+                <img src="https://via.placeholder.com/120x150/4a7a8a/ffffff?text=Эми" alt="Эми">
                 <div class="character-name">Эми</div>
                 <div class="character-status status-dead">Мёртв</div>
             </div>
-            <div class="character-frame item-frame" data-id="7">
-                <img src="https://via.placeholder.com/120x150/7a8a4a/ffffff?text=Агат" alt="Портрет торговца информацией Агата">
+            <div class="character-frame" data-id="7">
+                <img src="https://via.placeholder.com/120x150/7a8a4a/ffffff?text=Агат" alt="Агат">
                 <div class="character-name">Агат</div>
                 <div class="character-status status-unknown">Неизвестно</div>
             </div>
-            <div class="character-frame item-frame" data-id="8">
-                <img src="https://via.placeholder.com/120x150/5a5a5a/ffffff?text=???" alt="Неизвестный персонаж, личность загадочна">
+            <div class="character-frame" data-id="8">
+                <img src="https://via.placeholder.com/120x150/5a5a5a/ffffff?text=???" alt="???">
                 <div class="character-name">???</div>
                 <div class="character-status status-unknown">Неизвестно</div>
             </div>
-            <div class="character-frame item-frame" data-id="9">
-                <img src="https://via.placeholder.com/120x150/6a6a6a/ffffff?text=???" alt="Неизвестный персонаж, личность загадочна">
+            <div class="character-frame" data-id="9">
+                <img src="https://via.placeholder.com/120x150/6a6a6a/ffffff?text=???" alt="???">
                 <div class="character-name">???</div>
                 <div class="character-status status-unknown">Неизвестно</div>
             </div>
-            <div class="character-frame item-frame" data-id="10">
-                <img src="https://via.placeholder.com/120x150/8a6a4a/ffffff?text=Алиса" alt="Портрет принцессы Алисы">
+            <div class="character-frame" data-id="10">
+                <img src="https://via.placeholder.com/120x150/8a6a4a/ffffff?text=Алиса" alt="Алиса">
                 <div class="character-name">Алиса</div>
                 <div class="character-status status-alive">Жив</div>
             </div>
-            <div class="character-frame item-frame" data-id="11">
-                <img src="https://via.placeholder.com/120x150/4a6a8a/ffffff?text=Бен" alt="Портрет оруженосца Бена">
+            <div class="character-frame" data-id="11">
+                <img src="https://via.placeholder.com/120x150/4a6a8a/ffffff?text=Бен" alt="Бен">
                 <div class="character-name">Бен</div>
                 <div class="character-status status-dead">Мёртв</div>
             </div>
-            <div class="character-frame item-frame" data-id="12">
-                <img src="https://via.placeholder.com/120x150/8a8a6a/ffffff?text=Циркон" alt="Портрет советника Циркона">
+            <div class="character-frame" data-id="12">
+                <img src="https://via.placeholder.com/120x150/8a8a6a/ffffff?text=Циркон" alt="Циркон">
                 <div class="character-name">Циркон</div>
                 <div class="character-status status-alive">Жив</div>
             </div>
-            <div class="character-frame item-frame" data-id="13">
-                <img src="https://via.placeholder.com/120x150/4a4a6a/ffffff?text=Сапфир" alt="Портрет жрицы Сапфир">
+            <div class="character-frame" data-id="13">
+                <img src="https://via.placeholder.com/120x150/4a4a6a/ffffff?text=Сапфир" alt="Сапфир">
                 <div class="character-name">Сапфир</div>
                 <div class="character-status status-unknown">Неизвестно</div>
             </div>
-            <div class="character-frame item-frame" data-id="14">
-                <img src="https://via.placeholder.com/120x150/6a4a8a/ffffff?text=Элиот" alt="Портрет тактика Элиота">
+            <div class="character-frame" data-id="14">
+                <img src="https://via.placeholder.com/120x150/6a4a8a/ffffff?text=Элиот" alt="Элиот">
                 <div class="character-name">Элиот</div>
                 <div class="character-status status-alive">Жив</div>
             </div>
         </div>
         
-        <!-- Детали персонажей -->
-        <div id="character-details-1" class="character-details item-details" data-category="characters" data-id="1">
-            <button class="nav-btn prev">←</button>
-            <button class="nav-btn next">→</button>
-            <button class="close-btn">✕</button>
+        <!-- Детали персонажей (без рамки с именем и статусом) -->
+        <div id="character-details-1" class="character-details">
             <div class="character-image">
-                <img src="https://via.placeholder.com/400x500/4a4a8a/ffffff?text=Толик" alt="Детальный портрет демона Толика">
+                <img src="https://via.placeholder.com/400x500/4a4a8a/ffffff?text=Толик" alt="Толик">
             </div>
             <div class="character-description">
                 <h3>Толик</h3>
@@ -518,12 +397,9 @@
             </div>
         </div>
         
-        <div id="character-details-2" class="character-details item-details" data-category="characters" data-id="2">
-            <button class="nav-btn prev">←</button>
-            <button class="nav-btn next">→</button>
-            <button class="close-btn">✕</button>
+        <div id="character-details-2" class="character-details">
             <div class="character-image">
-                <img src="https://via.placeholder.com/400x500/8a4a4a/ffffff?text=Жан" alt="Детальный портрет волшебника Жана">
+                <img src="https://via.placeholder.com/400x500/8a4a4a/ffffff?text=Жан" alt="Жан">
             </div>
             <div class="character-description">
                 <h3>Жан</h3>
@@ -534,12 +410,9 @@
             </div>
         </div>
         
-        <div id="character-details-3" class="character-details item-details" data-category="characters" data-id="3">
-            <button class="nav-btn prev">←</button>
-            <button class="nav-btn next">→</button>
-            <button class="close-btn">✕</button>
+        <div id="character-details-3" class="character-details">
             <div class="character-image">
-                <img src="https://via.placeholder.com/400x500/4a8a4a/ffffff?text=Авантюрин" alt="Детальный портрет лучника Авантюрина">
+                <img src="https://via.placeholder.com/400x500/4a8a4a/ffffff?text=Авантюрин" alt="Авантюрин">
             </div>
             <div class="character-description">
                 <h3>Авантюрин</h3>
@@ -550,31 +423,172 @@
             </div>
         </div>
         
-        <!-- Остальные персонажи... -->
-        
-        <h2>Артефакты</h2>
-        <div class="artifacts-container">
-            <div class="artifact-frame item-frame" data-id="1">
-                <img src="https://via.placeholder.com/120x150/cc66ff/ffffff?text=Лапка" alt="Бриллиантовая Лапка - магический артефакт">
-                <div class="artifact-name">Бриллиантовая Лапка</div>
+        <div id="character-details-4" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/8a8a4a/ffffff?text=Топаз" alt="Топаз">
             </div>
-            <div class="artifact-frame item-frame" data-id="2">
-                <img src="https://via.placeholder.com/120x150/66ccff/ffffff?text=Лотос" alt="Лотос Льда - магический артефакт">
-                <div class="artifact-name">Лотос Льда</div>
-            </div>
-            <div class="artifact-frame item-frame" data-id="3">
-                <img src="https://via.placeholder.com/120x150/ff6666/ffffff?text=Кинжал" alt="Огненный кинжал - магический артефакт">
-                <div class="artifact-name">Огненный кинжал</div>
+            <div class="character-description">
+                <h3>Топаз</h3>
+                <p><strong>Статус:</strong> Жив</p>
+                <p>Посвятивший себя служению божеству, жрец обладает способностью исцелять раны и изгонять нечисть.</p>
+                <p>Проводит много времени в молитвах и изучении священных текстов. Его вера дает ему силу противостоять темным силам.</p>
+                <p>Несмотря на мирную профессию, при необходимости может использовать божественную магию для защиты себя и своих союзников.</p>
             </div>
         </div>
         
-        <!-- Детали артефактов -->
-        <div id="artifact-details-1" class="artifact-details item-details" data-category="artifacts" data-id="1">
-            <button class="nav-btn prev">←</button>
-            <button class="nav-btn next">→</button>
-            <button class="close-btn">✕</button>
+        <div id="character-details-5" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/8a4a7a/ffffff?text=Руби" alt="Руби">
+            </div>
+            <div class="character-description">
+                <h3>Руби</h3>
+                <p><strong>Статус:</strong> Жив</p>
+                <p>Искусная фехтовальщица с горячим темпераментом. Её меч движется так быстро, что противники видят лишь алую полосу.</p>
+                <p>Выросла в южном королевстве, где с детства обучалась искусству владения клинком.</p>
+                <p>Известна своей вспыльчивостью, но также и безграничной преданностью друзьям.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-6" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/4a7a8a/ffffff?text=Эми" alt="Эми">
+            </div>
+            <div class="character-description">
+                <h3>Эми</h3>
+                <p><strong>Статус:</strong> Мёртв</p>
+                <p>Тихий и скромный лекарь, обладавший даром исцеления. Могла лечить даже самые страшные раны.</p>
+                <p>Погибла, защищая раненых во время нападения на госпиталь.</p>
+                <p>Её смерть стала огромной потерей для всех, кто знал её доброту и самоотверженность.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-7" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/7a8a4a/ffffff?text=Агат" alt="Агат">
+            </div>
+            <div class="character-description">
+                <h3>Агат</h3>
+                <p><strong>Статус:</strong> Неизвестно</p>
+                <p>Загадочный торговец информацией, появляющийся только тогда, когда это нужно.</p>
+                <p>Владеет сетью шпионов по всему континенту и знает практически все, что происходит в королевстве.</p>
+                <p>Исчез после того, как продал ценную информацию о планах темного лорда.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-8" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/5a5a5a/ffffff?text=???" alt="???">
+            </div>
+            <div class="character-description">
+                <h3>Неизвестный Персонаж</h3>
+                <p><strong>Статус:</strong> Неизвестно</p>
+                <p>Личность этого персонажа остается загадкой. Некоторые считают, что это переодетый принц, другие - могущественный маг в изгнании.</p>
+                <p>Появляется только в критические моменты, чтобы оказать помощь, а затем исчезает без следа.</p>
+                <p>Его мотивы и цели остаются неизвестными.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-9" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/6a6a6a/ffffff?text=???" alt="???">
+            </div>
+            <div class="character-description">
+                <h3>Неизвестный Персонаж</h3>
+                <p><strong>Статус:</strong> Неизвестно</p>
+                <p>Тень, мелькающая в коридорах дворца. Никто не знает, кто он и что ему нужно.</p>
+                <p>Некоторые слуги клянутся, что видели его разговаривающим с призраками прошлых правителей.</p>
+                <p>Его существование ставит больше вопросов, чем дает ответов.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-10" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/8a6a4a/ffffff?text=Алиса" alt="Алиса">
+            </div>
+            <div class="character-description">
+                <h3>Алиса</h3>
+                <p><strong>Статус:</strong> Жив</p>
+                <p>Юная принцесса, обладающая даром предвидения. Её сны часто сбываются, что делает её ценной советницей при дворе.</p>
+                <p>Несмотря на молодость, обладает мудростью, недоступной многим взрослым.</p>
+                <p>Её способности вызывают как восхищение, так и опасения среди придворных.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-11" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/4a6a8a/ffffff?text=Бен" alt="Бен">
+            </div>
+            <div class="character-description">
+                <h3>Бен</h3>
+                <p><strong>Статус:</strong> Мёртв</p>
+                <p>Верный оруженосец, мечтавший стать рыцарем. Погиб, защищая своего господина от заговорщиков.</p>
+                <p>Несмотря на молодость, проявлял невероятную храбрость и преданность.</p>
+                <p>Его смерть стала трагедией для всех, кто знал этого доброго и отважного юношу.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-12" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/8a8a6a/ffffff?text=Циркон" alt="Циркон">
+            </div>
+            <div class="character-description">
+                <h3>Циркон</h3>
+                <p><strong>Статус:</strong> Жив</p>
+                <p>Старый и мудрый советник, служивший при дворе трех королей. Его знания истории и политики не имеют равных.</p>
+                <p>Несмотря на почтенный возраст, обладает острым умом и прекрасной памятью.</p>
+                <p>Многие считают его настоящей опорой королевства.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-13" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/4a4a6a/ffffff?text=Сапфир" alt="Сапфир">
+            </div>
+            <div class="character-description">
+                <h3>Сапфир</h3>
+                <p><strong>Статус:</strong> Неизвестно</p>
+                <p>Таинственная жрица древнего культа, исчезнувшая во время ритуала призыва.</p>
+                <p>Говорили, что она могла общаться с духами стихий и предсказывать будущее по звездам.</p>
+                <p>Её исчезновение до сих пор остается одной из величайших загадок королевства.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-14" class="character-details">
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/6a4a8a/ffffff?text=Элиот" alt="Элиот">
+            </div>
+            <div class="character-description">
+                <h3>Элиот</h3>
+                <p><strong>Статус:</strong> Жив</p>
+                <p>Блестящий тактик и стратег, чьи планы не раз спасали королевство от invasions.</p>
+                <p>Обладает уникальной способностью предугадывать действия противника и разрабатывать контрстратегии.</p>
+                <p>Несмотря на молодость, уже успел прославиться как один из лучших умов королевства.</p>
+            </div>
+        </div>
+        
+        <h2>Артефакты</h2>
+        <div class="artifacts-container">
+            <div class="artifact-frame" data-id="1">
+                <img src="https://via.placeholder.com/120x150/cc66ff/ffffff?text=Лапка" alt="Бриллиантовая Лапка">
+                <div class="artifact-name">Бриллиантовая Лапка</div>
+                <div class="artifact-type">Артефакт</div>
+            </div>
+            <div class="artifact-frame" data-id="2">
+                <img src="https://via.placeholder.com/120x150/66ccff/ffffff?text=Лотос" alt="Лотос Льда">
+                <div class="artifact-name">Лотос Льда</div>
+                <div class="artifact-type">Артефакт</div>
+            </div>
+            <div class="artifact-frame" data-id="3">
+                <img src="https://via.placeholder.com/120x150/ff6666/ffffff?text=Кинжал" alt="Огненный кинжал">
+                <div class="artifact-name">Огненный кинжал</div>
+                <div class="artifact-type">Артефакт</div>
+            </div>
+        </div>
+        
+        <!-- Детали артефактов (без рамки с именем) -->
+        <div id="artifact-details-1" class="artifact-details">
             <div class="artifact-image">
-                <img src="https://via.placeholder.com/400x500/cc66ff/ffffff?text=Бриллиантовая+Лапка" alt="Бриллиантовая Лапка - детальное изображение">
+                <img src="https://via.placeholder.com/400x500/cc66ff/ffffff?text=Бриллиантовая+Лапка" alt="Бриллиантовая Лапка">
             </div>
             <div class="artifact-description">
                 <h3>Бриллиантовая Лапка</h3>
@@ -584,12 +598,9 @@
             </div>
         </div>
         
-        <div id="artifact-details-2" class="artifact-details item-details" data-category="artifacts" data-id="2">
-            <button class="nav-btn prev">←</button>
-            <button class="nav-btn next">→</button>
-            <button class="close-btn">✕</button>
+        <div id="artifact-details-2" class="artifact-details">
             <div class="artifact-image">
-                <img src="https://via.placeholder.com/400x500/66ccff/ffffff?text=Лотос+Льда" alt="Лотос Льда - детальное изображение">
+                <img src="https://via.placeholder.com/400x500/66ccff/ffffff?text=Лотос+Льда" alt="Лотос Льда">
             </div>
             <div class="artifact-description">
                 <h3>Лотос Льда</h3>
@@ -599,12 +610,9 @@
             </div>
         </div>
         
-        <div id="artifact-details-3" class="artifact-details item-details" data-category="artifacts" data-id="3">
-            <button class="nav-btn prev">←</button>
-            <button class="nav-btn next">→</button>
-            <button class="close-btn">✕</button>
+        <div id="artifact-details-3" class="artifact-details">
             <div class="artifact-image">
-                <img src="https://via.placeholder.com/400x500/ff6666/ffffff?text=Огненный+кинжал" alt="Огненный кинжал - детальное изображение">
+                <img src="https://via.placeholder.com/400x500/ff6666/ffffff?text=Огненный+кинжал" alt="Огненный кинжал">
             </div>
             <div class="artifact-description">
                 <h3>Огненный кинжал</h3>
@@ -615,138 +623,80 @@
         </div>
     </div>
 
-   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Состояние приложения
-        const state = {
-            heroes: { currentId: 1, count: 7 },
-            characters: { currentId: 1, count: 14 },
-            artifacts: { currentId: 1, count: 3 }
-        };
-        
-        // Функция для открытия деталей
-        function openDetails(category, id) {
-            console.log('Opening:', category, id);
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Обработчики для героев
+            const heroFrames = document.querySelectorAll('.hero-frame');
+            const heroDetails = document.querySelectorAll('.hero-details');
             
-            // Скрываем все описания
-            document.querySelectorAll('.item-details').forEach(detail => {
-                detail.classList.remove('active');
+            heroFrames.forEach(frame => {
+                frame.addEventListener('click', function() {
+                    const heroId = this.getAttribute('data-id');
+                    
+                    // Скрываем все описания героев
+                    heroDetails.forEach(detail => {
+                        detail.classList.remove('active');
+                    });
+                    
+                    // Показываем выбранное описание
+                    const selectedDetail = document.getElementById(`hero-details-${heroId}`);
+                    if (selectedDetail) {
+                        selectedDetail.classList.add('active');
+                    }
+                    
+                    // Прокручиваем к описанию
+                    selectedDetail.scrollIntoView({ behavior: 'smooth' });
+                });
             });
             
-            // Убираем подсветку со всех рамок
-            document.querySelectorAll('.item-frame').forEach(frame => {
-                frame.classList.remove('active');
+            // Обработчики для персонажей
+            const characterFrames = document.querySelectorAll('.character-frame');
+            const characterDetails = document.querySelectorAll('.character-details');
+            
+            characterFrames.forEach(frame => {
+                frame.addEventListener('click', function() {
+                    const characterId = this.getAttribute('data-id');
+                    
+                    // Скрываем все описания персонажей
+                    characterDetails.forEach(detail => {
+                        detail.classList.remove('active');
+                    });
+                    
+                    // Показываем выбранное описание
+                    const selectedDetail = document.getElementById(`character-details-${characterId}`);
+                    if (selectedDetail) {
+                        selectedDetail.classList.add('active');
+                    }
+                    
+                    // Прокручиваем к описанию
+                    selectedDetail.scrollIntoView({ behavior: 'smooth' });
+                });
             });
             
-            // Показываем выбранное описание - ИСПРАВЛЕНО ID
-            const selectedDetail = document.getElementById(`${category}-details-${id}`);
-            console.log('Looking for:', `${category}-details-${id}`, 'Found:', selectedDetail);
+            // Обработчики для артефактов
+            const artifactFrames = document.querySelectorAll('.artifact-frame');
+            const artifactDetails = document.querySelectorAll('.artifact-details');
             
-            if (selectedDetail) {
-                selectedDetail.classList.add('active');
-                
-                // Подсвечиваем соответствующую рамку - ИСПРАВЛЕНО СЕЛЕКТОР
-                const correspondingFrame = document.querySelector(`.${category}-frame[data-id="${id}"]`);
-                console.log('Looking for frame:', `.${category}-frame[data-id="${id}"]`, 'Found:', correspondingFrame);
-                
-                if (correspondingFrame) {
-                    correspondingFrame.classList.add('active');
-                }
-                
-                // Обновляем состояние
-                state[category].currentId = id;
-                
-                // Плавная прокрутка к элементу
-                selectedDetail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        }
-        
-        // Функция для переключения между элементами
-        function navigate(direction, category) {
-            const categoryState = state[category];
-            let newId;
-            
-            if (direction === 'next') {
-                newId = categoryState.currentId % categoryState.count + 1;
-            } else {
-                newId = categoryState.currentId === 1 ? categoryState.count : categoryState.currentId - 1;
-            }
-            
-            openDetails(category, newId);
-        }
-        
-        // Функция для закрытия деталей
-        function closeDetails(category) {
-            // Скрываем все описания категории
-            document.querySelectorAll(`.${category}-details`).forEach(detail => {
-                detail.classList.remove('active');
-            });
-            
-            // Убираем подсветку со всех рамок категории
-            document.querySelectorAll(`.${category}-frame`).forEach(frame => {
-                frame.classList.remove('active');
-            });
-        }
-        
-        // Обработчики для героев
-        document.querySelectorAll('.hero-frame').forEach(frame => {
-            frame.addEventListener('click', function() {
-                const id = parseInt(this.getAttribute('data-id'));
-                openDetails('heroes', id);
+            artifactFrames.forEach(frame => {
+                frame.addEventListener('click', function() {
+                    const artifactId = this.getAttribute('data-id');
+                    
+                    // Скрываем все описания артефактов
+                    artifactDetails.forEach(detail => {
+                        detail.classList.remove('active');
+                    });
+                    
+                    // Показываем выбранное описание
+                    const selectedDetail = document.getElementById(`artifact-details-${artifactId}`);
+                    if (selectedDetail) {
+                        selectedDetail.classList.add('active');
+                    }
+                    
+                    // Прокручиваем к описанию
+                    selectedDetail.scrollIntoView({ behavior: 'smooth' });
+                });
             });
         });
-        
-        // Обработчики для персонажей
-        document.querySelectorAll('.character-frame').forEach(frame => {
-            frame.addEventListener('click', function() {
-                const id = parseInt(this.getAttribute('data-id'));
-                openDetails('characters', id);
-            });
-        });
-        
-        // Обработчики для артефактов
-        document.querySelectorAll('.artifact-frame').forEach(frame => {
-            frame.addEventListener('click', function() {
-                const id = parseInt(this.getAttribute('data-id'));
-                openDetails('artifacts', id);
-            });
-        });
-        
-        // Обработчики для кнопок навигации
-        document.querySelectorAll('.nav-btn.prev').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const detailsElement = this.closest('[data-category]');
-                if (detailsElement) {
-                    const category = detailsElement.getAttribute('data-category');
-                    navigate('prev', category);
-                }
-            });
-        });
-        
-        document.querySelectorAll('.nav-btn.next').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const detailsElement = this.closest('[data-category]');
-                if (detailsElement) {
-                    const category = detailsElement.getAttribute('data-category');
-                    navigate('next', category);
-                }
-            });
-        });
-        
-        // Обработчики для кнопок закрытия
-        document.querySelectorAll('.close-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const detailsElement = this.closest('[data-category]');
-                if (detailsElement) {
-                    const category = detailsElement.getAttribute('data-category');
-                    closeDetails(category);
-                }
-            });
-        });
-    });
-</script>
+    </script>
 </body>
 </html>
