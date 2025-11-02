@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Персонажи и предметы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #1a1a2e;
+            color: #e6e6e6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ffcc00;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+        
+        h2 {
+            color: #ffcc00;
+            margin: 30px 0 15px;
+            border-bottom: 2px solid #ffcc00;
+            padding-bottom: 5px;
+        }
+        
+        .characters-container, .items-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .character-frame, .item-frame {
+            width: 120px;
+            height: 150px;
+            border: 3px solid #ffcc00;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            background-color: #16213e;
+        }
+        
+        .character-frame:hover, .item-frame:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.7);
+        }
+        
+        .character-frame img, .item-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .character-name, .item-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #ffcc00;
+            text-align: center;
+            padding: 5px;
+            font-size: 14px;
+        }
+        
+        .character-details, .item-details {
+            display: none;
+            margin-top: 30px;
+            background-color: #16213e;
+            border: 3px solid #ffcc00;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+        }
+        
+        .character-details.active, .item-details.active {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .character-title, .item-title {
+            width: 100%;
+            text-align: center;
+            font-size: 24px;
+            color: #ffcc00;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 2px solid #ffcc00;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        
+        .character-image, .item-image {
+            flex: 1;
+            min-width: 300px;
+            border: 2px solid #ffcc00;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .character-image img, .item-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .character-description, .item-description {
+            flex: 2;
+            min-width: 300px;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .character-details.active, .item-details.active {
+                flex-direction: column;
+            }
+            
+            .character-image, .item-image {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Мир Фэнтези</h1>
+        
+        <h2>Персонажи</h2>
+        <div class="characters-container">
+            <div class="character-frame" data-id="1">
+                <img src="https://via.placeholder.com/120x150/4a4a8a/ffffff?text=Воин" alt="Воин">
+                <div class="character-name">Воин</div>
+            </div>
+            <div class="character-frame" data-id="2">
+                <img src="https://via.placeholder.com/120x150/8a4a4a/ffffff?text=Маг" alt="Маг">
+                <div class="character-name">Маг</div>
+            </div>
+            <div class="character-frame" data-id="3">
+                <img src="https://via.placeholder.com/120x150/4a8a4a/ffffff?text=Лучник" alt="Лучник">
+                <div class="character-name">Лучник</div>
+            </div>
+            <div class="character-frame" data-id="4">
+                <img src="https://via.placeholder.com/120x150/8a8a4a/ffffff?text=Жрец" alt="Жрец">
+                <div class="character-name">Жрец</div>
+            </div>
+        </div>
+        
+        <div id="character-details-1" class="character-details">
+            <div class="character-title">Воин</div>
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/4a4a8a/ffffff?text=Воин" alt="Воин">
+            </div>
+            <div class="character-description">
+                <p>Сильный и выносливый воин, мастер ближнего боя. Обладает высокой физической силой и выносливостью, что позволяет ему выдерживать серьезные повреждения в бою.</p>
+                <p>С детства тренировался в искусстве владения мечом и щитом. Участвовал во многих битвах и заслужил репутацию непобедимого бойца.</p>
+                <p>Несмотря на суровый внешний вид, обладает чувством справедливости и всегда защищает слабых.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-2" class="character-details">
+            <div class="character-title">Маг</div>
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/8a4a4a/ffffff?text=Маг" alt="Маг">
+            </div>
+            <div class="character-description">
+                <p>Могущественный волшебник, владеющий тайнами магии. Провел годы в изучении древних заклинаний и артефактов.</p>
+                <p>Обладает глубокими знаниями в области элементальной магии, способен призывать огонь, лед и молнию для поражения врагов.</p>
+                <p>Несмотря на свою мощь, физически слаб и предпочитает держаться на расстоянии в бою, полагаясь на свои заклинания.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-3" class="character-details">
+            <div class="character-title">Лучник</div>
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/4a8a4a/ffffff?text=Лучник" alt="Лучник">
+            </div>
+            <div class="character-description">
+                <p>Искусный стрелок из лука, способный поразить цель с огромного расстояния. Вырос в лесах, где научился охотиться и выживать в дикой природе.</p>
+                <p>Обладает невероятной ловкостью и острым зрением, что делает его незаменимым разведчиком и снайпером.</p>
+                <p>Предпочитает действовать в одиночку, но при необходимости может эффективно работать в команде.</p>
+            </div>
+        </div>
+        
+        <div id="character-details-4" class="character-details">
+            <div class="character-title">Жрец</div>
+            <div class="character-image">
+                <img src="https://via.placeholder.com/400x500/8a8a4a/ffffff?text=Жрец" alt="Жрец">
+            </div>
+            <div class="character-description">
+                <p>Посвятивший себя служению божеству, жрец обладает способностью исцелять раны и изгонять нечисть.</p>
+                <p>Проводит много времени в молитвах и изучении священных текстов. Его вера дает ему силу противостоять темным силам.</p>
+                <p>Несмотря на мирную профессию, при необходимости может использовать божественную магию для защиты себя и своих союзников.</p>
+            </div>
+        </div>
+        
+        <h2>Предметы</h2>
+        <div class="items-container">
+            <div class="item-frame" data-id="1">
+                <img src="https://via.placeholder.com/120x150/555555/ffffff?text=Меч" alt="Меч">
+                <div class="item-name">Меч</div>
+            </div>
+            <div class="item-frame" data-id="2">
+                <img src="https://via.placeholder.com/120x150/ff9900/ffffff?text=Посох" alt="Посох">
+                <div class="item-name">Посох</div>
+            </div>
+            <div class="item-frame" data-id="3">
+                <img src="https://via.placeholder.com/120x150/3366ff/ffffff?text=Зелье" alt="Зелье">
+                <div class="item-name">Зелье</div>
+            </div>
+            <div class="item-frame" data-id="4">
+                <img src="https://via.placeholder.com/120x150/9933cc/ffffff?text=Амулет" alt="Амулет">
+                <div class="item-name">Амулет</div>
+            </div>
+        </div>
+        
+        <div id="item-details-1" class="item-details">
+            <div class="item-title">Меч Пламени</div>
+            <div class="item-image">
+                <img src="https://via.placeholder.com/400x500/555555/ffffff?text=Меч+Пламени" alt="Меч Пламени">
+            </div>
+            <div class="item-description">
+                <p>Легендарный меч, выкованный в глубинах вулкана. Его лезвие всегда излучает слабое тепло, а при ударе может воспламеняться.</p>
+                <p>Согласно легенде, этот меч был создан древними кузнецами-магами для борьбы с ледяными великанами.</p>
+                <p>Обладает способностью наносить дополнительный урон огнем и имеет шанс поджечь противника.</p>
+            </div>
+        </div>
+        
+        <div id="item-details-2" class="item-details">
+            <div class="item-title">Посох Мудрости</div>
+            <div class="item-image">
+                <img src="https://via.placeholder.com/400x500/ff9900/ffffff?text=Посох+Мудрости" alt="Посох Мудрости">
+            </div>
+            <div class="item-description">
+                <p>Древний посох, инкрустированный кристаллами, усиливающими магические способности владельца.</p>
+                <p>Говорят, что этот посох когда-то принадлежал верховному магу древнего ордена, который с его помощью защищал королевство от вторжения демонов.</p>
+                <p>Увеличивает силу заклинаний и ускоряет восстановление маны.</p>
+            </div>
+        </div>
+        
+        <div id="item-details-3" class="item-details">
+            <div class="item-title">Зелье Исцеления</div>
+            <div class="item-image">
+                <img src="https://via.placeholder.com/400x500/3366ff/ffffff?text=Зелье+Исцеления" alt="Зелье Исцеления">
+            </div>
+            <div class="item-description">
+                <p>Магическое зелье, созданное из редких трав и кристаллов. Обладает способностью мгновенно залечивать раны.</p>
+                <p>Рецепт этого зелья хранится в строжайшем секрете алхимиками гильдии, и производство ограничено.</p>
+                <p>Восстанавливает значительное количество здоровья при использовании. Эффективность зависит от качества ингредиентов.</p>
+            </div>
+        </div>
+        
+        <div id="item-details-4" class="item-details">
+            <div class="item-title">Амулет Защиты</div>
+            <div class="item-image">
+                <img src="https://via.placeholder.com/400x500/9933cc/ffffff?text=Амулет+Защиты" alt="Амулет Защиты">
+            </div>
+            <div class="item-description">
+                <p>Древний амулет, созданный для защиты владельца от магических атак и темных чар.</p>
+                <p>Согласно преданию, этот амулет был подарен первым королем своему верному рыцарю, отправлявшемуся на битву с колдуном-предателем.</p>
+                <p>Повышает сопротивление магии и имеет шанс отразить враждебное заклинание обратно на заклинателя.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Обработчики для персонажей
+            const characterFrames = document.querySelectorAll('.character-frame');
+            const characterDetails = document.querySelectorAll('.character-details');
+            
+            characterFrames.forEach(frame => {
+                frame.addEventListener('click', function() {
+                    const characterId = this.getAttribute('data-id');
+                    
+                    // Скрываем все описания персонажей
+                    characterDetails.forEach(detail => {
+                        detail.classList.remove('active');
+                    });
+                    
+                    // Показываем выбранное описание
+                    const selectedDetail = document.getElementById(`character-details-${characterId}`);
+                    if (selectedDetail) {
+                        selectedDetail.classList.add('active');
+                    }
+                    
+                    // Прокручиваем к описанию
+                    selectedDetail.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+            
+            // Обработчики для предметов
+            const itemFrames = document.querySelectorAll('.item-frame');
+            const itemDetails = document.querySelectorAll('.item-details');
+            
+            itemFrames.forEach(frame => {
+                frame.addEventListener('click', function() {
+                    const itemId = this.getAttribute('data-id');
+                    
+                    // Скрываем все описания предметов
+                    itemDetails.forEach(detail => {
+                        detail.classList.remove('active');
+                    });
+                    
+                    // Показываем выбранное описание
+                    const selectedDetail = document.getElementById(`item-details-${itemId}`);
+                    if (selectedDetail) {
+                        selectedDetail.classList.add('active');
+                    }
+                    
+                    // Прокручиваем к описанию
+                    selectedDetail.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
