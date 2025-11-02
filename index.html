@@ -187,26 +187,25 @@
     line-height: 1.6;
 }
 
-/* Стрелки сбоку от рамки */
+/* Стрелки сбоку от рамки во весь размер */
 .nav-arrows-outside {
     position: absolute;
-    top: 50%;
-    left: -70px;
-    right: -70px;
-    transform: translateY(-50%);
+    top: 0;
+    bottom: 0;
+    left: -60px;
+    right: -60px;
     display: flex;
     justify-content: space-between;
     pointer-events: none;
-    z-index: 2; /* Стрелки выше контента */
+    z-index: 2;
 }
 
 .nav-arrow-outside {
-    background-color: #ffcc00;
+    background-color: #ffcc00; /* Непрозрачный желтый */
     color: #1a1a2e;
     border: none;
-    border-radius: 50%;
     width: 50px;
-    height: 50px;
+    height: 100%; /* Во всю высоту рамки */
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
@@ -215,32 +214,47 @@
     justify-content: center;
     transition: all 0.3s ease;
     pointer-events: all;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 0;
+    opacity: 1;
+}
+
+.nav-arrow-outside.prev {
+    border-radius: 10px 0 0 10px;
+}
+
+.nav-arrow-outside.next {
+    border-radius: 0 10px 10px 0;
 }
 
 .nav-arrow-outside:hover {
     background-color: #ffd633;
-    transform: scale(1.1);
     box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
 }
 
+/* Обеспечиваем правильное отображение контента */
+.details-container {
+    position: relative;
+    width: 100%;
+    z-index: 1;
+}
+
+.hero-content, .character-content, .artifact-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    position: relative;
+}
+
 @media (max-width: 768px) {
-    .hero-content, .character-content, .artifact-content {
-        flex-direction: column;
-    }
-    
-    .hero-image, .character-image, .artifact-image {
-        min-width: 100%;
-    }
-    
     .nav-arrows-outside {
-        left: -50px;
-        right: -50px;
+        left: -40px;
+        right: -40px;
     }
     
     .nav-arrow-outside {
         width: 40px;
-        height: 40px;
         font-size: 22px;
     }
 }
