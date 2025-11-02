@@ -5,228 +5,243 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Герои, Персонажи и Артефакты</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #1a1a2e;
-            color: #e6e6e6;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #ffcc00;
-            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
-        }
-        
-        h2 {
-            color: #ffcc00;
-            margin: 30px 0 15px;
-            border-bottom: 2px solid #ffcc00;
-            padding-bottom: 5px;
-        }
-        
-        .heroes-container, .characters-container, .artifacts-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-        
-        .hero-frame, .character-frame, .artifact-frame {
-            width: 120px;
-            height: 150px;
-            border: 3px solid #ffcc00;
-            border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            background-color: #16213e;
-        }
-        
-        .hero-frame:hover, .character-frame:hover, .artifact-frame:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.7);
-        }
-        
-        .hero-frame.selected, .character-frame.selected, .artifact-frame.selected {
-            border-color: #ff3333;
-            box-shadow: 0 0 20px rgba(255, 51, 51, 0.8);
-        }
-        
-        .hero-frame img, .character-frame img, .artifact-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .hero-name, .character-name, .artifact-name {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: #ffcc00;
-            text-align: center;
-            padding: 3px;
-            font-size: 12px;
-        }
-        
-        .artifact-name {
-            bottom: 0;
-        }
-        
-        .hero-status, .character-status {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            text-align: center;
-            padding: 3px;
-            font-size: 11px;
-            font-weight: bold;
-        }
-        
-        .artifact-type {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            text-align: center;
-            padding: 3px;
-            font-size: 11px;
-            background-color: rgba(76, 175, 80, 0.8);
-            color: white;
-        }
-        
-        .status-alive {
-            background-color: rgba(76, 175, 80, 0.8);
-            color: white;
-        }
-        
-        .status-dead {
-            background-color: rgba(244, 67, 54, 0.8);
-            color: white;
-        }
-        
-        .status-unknown {
-            background-color: rgba(158, 158, 158, 0.8);
-            color: white;
-        }
-        
-        .hero-details, .character-details, .artifact-details {
-            display: none;
-            margin-top: 30px;
-            background-color: #16213e;
-            border: 3px solid #ffcc00;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
-            position: relative;
-        }
-        
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+        background-color: #1a1a2e;
+        color: #e6e6e6;
+        padding: 20px;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #ffcc00;
+        text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+    }
+    
+    h2 {
+        color: #ffcc00;
+        margin: 30px 0 15px;
+        border-bottom: 2px solid #ffcc00;
+        padding-bottom: 5px;
+    }
+    
+    .heroes-container, .characters-container, .artifacts-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+    
+    .hero-frame, .character-frame, .artifact-frame {
+        width: 120px;
+        height: 150px;
+        border: 3px solid #ffcc00;
+        border-radius: 10px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        background-color: #16213e;
+    }
+    
+    .hero-frame:hover, .character-frame:hover, .artifact-frame:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(255, 204, 0, 0.7);
+    }
+    
+    .hero-frame.selected, .character-frame.selected, .artifact-frame.selected {
+        border-color: #ff3333;
+        box-shadow: 0 0 20px rgba(255, 51, 51, 0.8);
+    }
+    
+    .hero-frame img, .character-frame img, .artifact-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .hero-name, .character-name, .artifact-name {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #ffcc00;
+        text-align: center;
+        padding: 3px;
+        font-size: 12px;
+    }
+    
+    .artifact-name {
+        bottom: 0;
+    }
+    
+    .hero-status, .character-status {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        padding: 3px;
+        font-size: 11px;
+        font-weight: bold;
+    }
+    
+    .artifact-type {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        padding: 3px;
+        font-size: 11px;
+        background-color: rgba(76, 175, 80, 0.8);
+        color: white;
+    }
+    
+    .status-alive {
+        background-color: rgba(76, 175, 80, 0.8);
+        color: white;
+    }
+    
+    .status-dead {
+        background-color: rgba(244, 67, 54, 0.8);
+        color: white;
+    }
+    
+    .status-unknown {
+        background-color: rgba(158, 158, 158, 0.8);
+        color: white;
+    }
+    
+    /* Новые стили для контейнера и стрелок */
+    .details-container {
+        position: relative;
+        width: 100%;
+    }
+    
+    .hero-details, .character-details, .artifact-details {
+        display: none;
+        margin-top: 30px;
+        background-color: #16213e;
+        border: 3px solid #ffcc00;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+        position: relative;
+    }
+    
+    .hero-details.active, .character-details.active, .artifact-details.active {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    
+    .hero-image, .character-image, .artifact-image {
+        flex: 1;
+        min-width: 300px;
+        border: 2px solid #ffcc00;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    .hero-image img, .character-image img, .artifact-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    
+    .hero-description, .character-description, .artifact-description {
+        flex: 2;
+        min-width: 300px;
+        padding: 15px;
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        line-height: 1.6;
+    }
+    
+    .hero-description h3, .character-description h3, .artifact-description h3 {
+        color: #ffcc00;
+        margin-bottom: 10px;
+        font-size: 24px;
+    }
+    
+    /* Стрелки за пределами рамки */
+    .nav-arrows-outside {
+        position: absolute;
+        top: 50%;
+        left: -70px;
+        right: -70px;
+        transform: translateY(-50%);
+        display: flex;
+        justify-content: space-between;
+        pointer-events: none;
+        z-index: 10;
+    }
+    
+    .nav-arrow-outside {
+        background-color: rgba(255, 204, 0, 0.9);
+        color: #1a1a2e;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        pointer-events: all;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    .nav-arrow-outside:hover {
+        background-color: #ffcc00;
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+    }
+    
+    /* Убираем старые стрелки внутри рамки */
+    .nav-arrows {
+        display: none;
+    }
+    
+    @media (max-width: 768px) {
         .hero-details.active, .character-details.active, .artifact-details.active {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+            flex-direction: column;
         }
         
         .hero-image, .character-image, .artifact-image {
-            flex: 1;
-            min-width: 300px;
-            border: 2px solid #ffcc00;
-            border-radius: 10px;
-            overflow: hidden;
+            min-width: 100%;
         }
         
-        .hero-image img, .character-image img, .artifact-image img {
-            width: 100%;
-            height: auto;
-            display: block;
+        .nav-arrows-outside {
+            left: -50px;
+            right: -50px;
         }
         
-        .hero-description, .character-description, .artifact-description {
-            flex: 2;
-            min-width: 300px;
-            padding: 15px;
-            background-color: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            line-height: 1.6;
-            position: relative;
-        }
-        
-        .hero-description h3, .character-description h3, .artifact-description h3 {
-            color: #ffcc00;
-            margin-bottom: 10px;
-            font-size: 24px;
-        }
-        
-        .nav-arrows {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 20px;
-            pointer-events: none;
-        }
-        
-        .nav-arrow {
-            background-color: rgba(255, 204, 0, 0.8);
-            color: #1a1a2e;
-            border: none;
-            border-radius: 50%;
+        .nav-arrow-outside {
             width: 40px;
             height: 40px;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            pointer-events: all;
+            font-size: 22px;
         }
-        
-        .nav-arrow:hover {
-            background-color: #ffcc00;
-            transform: scale(1.1);
-        }
-        
-        @media (max-width: 768px) {
-            .hero-details.active, .character-details.active, .artifact-details.active {
-                flex-direction: column;
-            }
-            
-            .hero-image, .character-image, .artifact-image {
-                min-width: 100%;
-            }
-            
-            .nav-arrows {
-                padding: 0 10px;
-            }
-            
-            .nav-arrow {
-                width: 35px;
-                height: 35px;
-                font-size: 16px;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
     <div class="container">
@@ -272,22 +287,25 @@
         </div>
         
         <!-- Детали героев (без рамки с именем и статусом) -->
-        <div id="hero-details-1" class="hero-details">
-            <div class="nav-arrows">
-                <button class="nav-arrow prev-hero">←</button>
-                <button class="nav-arrow next-hero">→</button>
-            </div>
-            <div class="hero-image">
-                <img src="https://via.placeholder.com/400x500/4a4a8a/ffffff?text=Брут" alt="Брут">
-            </div>
-            <div class="hero-description">
-                <h3>Брут</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Сильный и выносливый воин, мастер ближнего боя. Обладает высокой физической силой и выносливостью, что позволяет ему выдерживать серьезные повреждения в бою.</p>
-                <p>С детства тренировался в искусстве владения мечом и щитом. Участвовал во многих битвах и заслужил репутацию непобедимого бойца.</p>
-                <p>Несмотря на суровый внешний вид, обладает чувством справедливости и всегда защищает слабых.</p>
-            </div>
+        <!-- Обновляем HTML для деталей героев (пример для первого героя, аналогично для остальных) -->
+<div id="hero-details-1" class="hero-details">
+    <div class="details-container">
+        <div class="nav-arrows-outside">
+            <button class="nav-arrow-outside prev prev-hero">‹</button>
+            <button class="nav-arrow-outside next next-hero">›</button>
         </div>
+        <div class="hero-image">
+            <img src="https://via.placeholder.com/400x500/4a4a8a/ffffff?text=Брут" alt="Брут">
+        </div>
+        <div class="hero-description">
+            <h3>Брут</h3>
+            <p><strong>Статус:</strong> Жив</p>
+            <p>Сильный и выносливый воин, мастер ближнего боя. Обладает высокой физической силой и выносливостью, что позволяет ему выдерживать серьезные повреждения в бою.</p>
+            <p>С детства тренировался в искусстве владения мечом и щитом. Участвовал во многих битвах и заслужил репутацию непобедимого бойца.</p>
+            <p>Несмотря на суровый внешний вид, обладает чувством справедливости и всегда защищает слабых.</p>
+        </div>
+    </div>
+</div>
         
         <div id="hero-details-2" class="hero-details">
             <div class="nav-arrows">
@@ -466,22 +484,25 @@
         </div>
         
         <!-- Детали персонажей (без рамки с именем и статусом) -->
-        <div id="character-details-1" class="character-details">
-            <div class="nav-arrows">
-                <button class="nav-arrow prev-character">←</button>
-                <button class="nav-arrow next-character">→</button>
-            </div>
-            <div class="character-image">
-                <img src="https://via.placeholder.com/400x500/4a4a8a/ffffff?text=Толик" alt="Толик">
-            </div>
-            <div class="character-description">
-                <h3>Толик</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Демон, захвативший власть в Северном Королевстве, расширяющий его границы, поедая членов королевской семьи.</p>
-                <p>Является покровителем Влады, крайне сомнительной личностью и не шибко уважает своих родителей (как минимум, за выбор имени).</p>
-                <p>Уровень сил неизвестен, в первом столкновении он был способен спокойно разобраться с вашей группой, но кто знает, как поменялся и поменяется в дальнейшем баланс сил.</p>
-            </div>
+        <!-- Обновляем HTML для деталей персонажей (пример для первого персонажа) -->
+<div id="character-details-1" class="character-details">
+    <div class="details-container">
+        <div class="nav-arrows-outside">
+            <button class="nav-arrow-outside prev prev-character">‹</button>
+            <button class="nav-arrow-outside next next-character">›</button>
         </div>
+        <div class="character-image">
+            <img src="https://via.placeholder.com/400x500/4a4a8a/ffffff?text=Толик" alt="Толик">
+        </div>
+        <div class="character-description">
+            <h3>Толик</h3>
+            <p><strong>Статус:</strong> Жив</p>
+            <p>Демон, захвативший власть в Северном Королевстве, расширяющий его границы, поедая членов королевской семьи.</p>
+            <p>Является покровителем Влады, крайне сомнительной личностью и не шибко уважает своих родителей (как минимум, за выбор имени).</p>
+            <p>Уровень сил неизвестен, в первом столкновении он был способен спокойно разобраться с вашей группой, но кто знает, как поменялся и поменяется в дальнейшем баланс сил.</p>
+        </div>
+    </div>
+</div>
         
         <div id="character-details-2" class="character-details">
             <div class="nav-arrows">
@@ -720,22 +741,24 @@
             </div>
         </div>
         
-        <!-- Детали артефактов (без рамки с именем) -->
-        <div id="artifact-details-1" class="artifact-details">
-            <div class="nav-arrows">
-                <button class="nav-arrow prev-artifact">←</button>
-                <button class="nav-arrow next-artifact">→</button>
-            </div>
-            <div class="artifact-image">
-                <img src="https://via.placeholder.com/400x500/cc66ff/ffffff?text=Бриллиантовая+Лапка" alt="Бриллиантовая Лапка">
-            </div>
-            <div class="artifact-description">
-                <h3>Бриллиантовая Лапка</h3>
-                <p>Таинственный артефакт, созданный из чистейшего бриллианта в форме кошачьей лапки. Обладает способностью приносить удачу своему владельцу.</p>
-                <p>Согласно легенде, этот артефакт был создан древними магами для королевы, которая потеряла своего любимого кота.</p>
-                <p>Обладает способностью увеличивать шанс на успех в любых начинаниях и защищает от неудач.</p>
-            </div>
+        <!-- Обновляем HTML для деталей артефактов (пример для первого артефакта) -->
+<div id="artifact-details-1" class="artifact-details">
+    <div class="details-container">
+        <div class="nav-arrows-outside">
+            <button class="nav-arrow-outside prev prev-artifact">‹</button>
+            <button class="nav-arrow-outside next next-artifact">›</button>
         </div>
+        <div class="artifact-image">
+            <img src="https://via.placeholder.com/400x500/cc66ff/ffffff?text=Бриллиантовая+Лапка" alt="Бриллиантовая Лапка">
+        </div>
+        <div class="artifact-description">
+            <h3>Бриллиантовая Лапка</h3>
+            <p>Таинственный артефакт, созданный из чистейшего бриллианта в форме кошачьей лапки. Обладает способностью приносить удачу своему владельцу.</p>
+            <p>Согласно легенде, этот артефакт был создан древними магами для королевы, которая потеряла своего любимого кота.</p>
+            <p>Обладает способностью увеличивать шанс на успех в любых начинаниях и защищает от неудач.</p>
+        </div>
+    </div>
+</div>
         
         <div id="artifact-details-2" class="artifact-details">
             <div class="nav-arrows">
@@ -889,31 +912,30 @@
             }
             
             // Обработчики для стрелок героев
-            document.querySelectorAll('.prev-hero').forEach(arrow => {
-                arrow.addEventListener('click', () => navigate('prev', 'hero'));
-            });
-            
-            document.querySelectorAll('.next-hero').forEach(arrow => {
-                arrow.addEventListener('click', () => navigate('next', 'hero'));
-            });
-            
-            // Обработчики для стрелок персонажей
-            document.querySelectorAll('.prev-character').forEach(arrow => {
-                arrow.addEventListener('click', () => navigate('prev', 'character'));
-            });
-            
-            document.querySelectorAll('.next-character').forEach(arrow => {
-                arrow.addEventListener('click', () => navigate('next', 'character'));
-            });
-            
-            // Обработчики для стрелок артефактов
-            document.querySelectorAll('.prev-artifact').forEach(arrow => {
-                arrow.addEventListener('click', () => navigate('prev', 'artifact'));
-            });
-            
-            document.querySelectorAll('.next-artifact').forEach(arrow => {
-                arrow.addEventListener('click', () => navigate('next', 'artifact'));
-            });
+            // Обновляем обработчики для новых стрелок
+document.querySelectorAll('.prev-hero').forEach(arrow => {
+    arrow.addEventListener('click', () => navigate('prev', 'hero'));
+});
+
+document.querySelectorAll('.next-hero').forEach(arrow => {
+    arrow.addEventListener('click', () => navigate('next', 'hero'));
+});
+
+document.querySelectorAll('.prev-character').forEach(arrow => {
+    arrow.addEventListener('click', () => navigate('prev', 'character'));
+});
+
+document.querySelectorAll('.next-character').forEach(arrow => {
+    arrow.addEventListener('click', () => navigate('next', 'character'));
+});
+
+document.querySelectorAll('.prev-artifact').forEach(arrow => {
+    arrow.addEventListener('click', () => navigate('prev', 'artifact'));
+});
+
+document.querySelectorAll('.next-artifact').forEach(arrow => {
+    arrow.addEventListener('click', () => navigate('next', 'artifact'));
+});
         });
     </script>
 </body>
