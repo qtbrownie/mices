@@ -615,7 +615,7 @@
         </div>
     </div>
 
-    <script>
+   <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Состояние приложения
         const state = {
@@ -626,7 +626,7 @@
         
         // Функция для открытия деталей
         function openDetails(category, id) {
-            console.log('Opening:', category, id); // Debug
+            console.log('Opening:', category, id);
             
             // Скрываем все описания
             document.querySelectorAll('.item-details').forEach(detail => {
@@ -638,13 +638,17 @@
                 frame.classList.remove('active');
             });
             
-            // Показываем выбранное описание
+            // Показываем выбранное описание - ИСПРАВЛЕНО ID
             const selectedDetail = document.getElementById(`${category}-details-${id}`);
+            console.log('Looking for:', `${category}-details-${id}`, 'Found:', selectedDetail);
+            
             if (selectedDetail) {
                 selectedDetail.classList.add('active');
                 
-                // Подсвечиваем соответствующую рамку
-                const correspondingFrame = document.querySelector(`.${category}-container .item-frame[data-id="${id}"]`);
+                // Подсвечиваем соответствующую рамку - ИСПРАВЛЕНО СЕЛЕКТОР
+                const correspondingFrame = document.querySelector(`.${category}-frame[data-id="${id}"]`);
+                console.log('Looking for frame:', `.${category}-frame[data-id="${id}"]`, 'Found:', correspondingFrame);
+                
                 if (correspondingFrame) {
                     correspondingFrame.classList.add('active');
                 }
@@ -679,12 +683,12 @@
             });
             
             // Убираем подсветку со всех рамок категории
-            document.querySelectorAll(`.${category}-container .item-frame`).forEach(frame => {
+            document.querySelectorAll(`.${category}-frame`).forEach(frame => {
                 frame.classList.remove('active');
             });
         }
         
-        // Обработчики для героев - ИСПРАВЛЕНО
+        // Обработчики для героев
         document.querySelectorAll('.hero-frame').forEach(frame => {
             frame.addEventListener('click', function() {
                 const id = parseInt(this.getAttribute('data-id'));
@@ -692,7 +696,7 @@
             });
         });
         
-        // Обработчики для персонажей - ИСПРАВЛЕНО
+        // Обработчики для персонажей
         document.querySelectorAll('.character-frame').forEach(frame => {
             frame.addEventListener('click', function() {
                 const id = parseInt(this.getAttribute('data-id'));
@@ -700,7 +704,7 @@
             });
         });
         
-        // Обработчики для артефактов - ИСПРАВЛЕНО
+        // Обработчики для артефактов
         document.querySelectorAll('.artifact-frame').forEach(frame => {
             frame.addEventListener('click', function() {
                 const id = parseInt(this.getAttribute('data-id'));
@@ -741,15 +745,6 @@
                     closeDetails(category);
                 }
             });
-        });
-        
-        // Закрытие по клику вне области (опционально)
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.item-details') && !e.target.closest('.item-frame')) {
-                Object.keys(state).forEach(category => {
-                    closeDetails(category);
-                });
-            }
         });
     });
 </script>
