@@ -183,8 +183,8 @@
     .nav-arrows-outside {
         position: absolute;
         top: 50%;
-        left: -70px;
-        right: -70px;
+        left: -80px;  /* Увеличиваем отступ от рамки */
+        right: -80px; /* Увеличиваем отступ от рамки */
         transform: translateY(-50%);
         display: flex;
         justify-content: space-between;
@@ -214,32 +214,6 @@
         background-color: #ffcc00;
         transform: scale(1.1);
         box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
-    }
-    
-    /* Убираем старые стрелки внутри рамки */
-    .nav-arrows {
-        display: none;
-    }
-    
-    @media (max-width: 768px) {
-        .hero-details.active, .character-details.active, .artifact-details.active {
-            flex-direction: column;
-        }
-        
-        .hero-image, .character-image, .artifact-image {
-            min-width: 100%;
-        }
-        
-        .nav-arrows-outside {
-            left: -50px;
-            right: -50px;
-        }
-        
-        .nav-arrow-outside {
-            width: 40px;
-            height: 40px;
-            font-size: 22px;
-        }
     }
 </style>
 </head>
@@ -306,23 +280,25 @@
         </div>
     </div>
 </div>
-        
-        <div id="hero-details-2" class="hero-details">
-            <div class="nav-arrows">
-                <button class="nav-arrow prev-hero">←</button>
-                <button class="nav-arrow next-hero">→</button>
-            </div>
-            <div class="hero-image">
-                <img src="https://via.placeholder.com/400x500/8a4a4a/ffffff?text=Влада" alt="Влада">
-            </div>
-            <div class="hero-description">
-                <h3>Влада</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Таинственная воительница, владеющая древними боевыми искусствами. Её прошлое окутано тайной, и лишь немногие знают о её истинной силе.</p>
-                <p>Обладает невероятной скоростью и ловкостью, что делает её смертельно опасным противником в ближнем бою.</p>
-                <p>Несмотря на свою закрытость, верна своим союзникам и всегда выполняет данные обещания.</p>
-            </div>
+
+<div id="hero-details-2" class="hero-details">
+    <div class="details-container">
+        <div class="nav-arrows-outside">
+            <button class="nav-arrow-outside prev prev-hero">‹</button>
+            <button class="nav-arrow-outside next next-hero">›</button>
         </div>
+        <div class="hero-image">
+            <img src="https://via.placeholder.com/400x500/8a4a4a/ffffff?text=Влада" alt="Влада">
+        </div>
+        <div class="hero-description">
+            <h3>Влада</h3>
+            <p><strong>Статус:</strong> Жив</p>
+            <p>Таинственная воительница, владеющая древними боевыми искусствами. Её прошлое окутано тайной, и лишь немногие знают о её истинной силе.</p>
+            <p>Обладает невероятной скоростью и ловкостью, что делает её смертельно опасным противником в ближнем бою.</p>
+            <p>Несмотря на свою закрытость, верна своим союзникам и всегда выполняет данные обещания.</p>
+        </div>
+    </div>
+</div>
         
         <div id="hero-details-3" class="hero-details">
             <div class="nav-arrows">
