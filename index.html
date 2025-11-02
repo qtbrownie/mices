@@ -134,19 +134,18 @@
     }
     
     .hero-details, .character-details, .artifact-details {
-        display: none;
-        margin-top: 30px;
-        background-color: #16213e;
-        border: 3px solid #ffcc00;
-        border-radius: 15px;
-        padding: 20px;
-        box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
-        position: relative;
-    }
-    
-    .hero-details.active, .character-details.active, .artifact-details.active {
+    display: none;
+    margin-top: 30px;
+    background-color: #16213e;
+    border: 3px solid #ffcc00;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+    position: relative; /* Важно: позиционируем саму рамку */
+}
+
+.hero-details.active, .character-details.active, .artifact-details.active {
     display: block;
-    position: relative; /* Добавляем это */
 }
 
 .details-container {
@@ -154,16 +153,28 @@
     width: 100%;
 }
 
+/* Контейнеры для контента */
+.hero-content, .character-content, .artifact-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    position: relative; /* Обеспечиваем нормальный поток контента */
+    z-index: 1; /* Контент выше стрелок */
+}
+
+/* Стрелки за пределами рамки - фиксированное позиционирование */
 .nav-arrows-outside {
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: calc(100% + 160px); /* Ширина + отступы */
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
     display: flex;
     justify-content: space-between;
     pointer-events: none;
-    z-index: 10;
+    z-index: 2; /* Стрелки выше контента, но не мешают */
+    padding: 0 20px; /* Отступы от краев */
 }
 
 .nav-arrow-outside {
@@ -185,12 +196,13 @@
     position: relative;
 }
 
+/* Фиксируем позиции стрелок относительно внешних границ */
 .nav-arrow-outside.prev {
-    left: -80px; /* Фиксированный отступ слева */
+    margin-left: -70px; /* Выдвигаем за левую границу */
 }
 
 .nav-arrow-outside.next {
-    right: -80px; /* Фиксированный отступ справа */
+    margin-right: -70px; /* Выдвигаем за правую границу */
 }
 
 .nav-arrow-outside:hover {
@@ -199,23 +211,51 @@
     box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
 }
 
+/* Остальные стили остаются без изменений */
+.hero-image, .character-image, .artifact-image {
+    flex: 1;
+    min-width: 300px;
+    border: 2px solid #ffcc00;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.hero-image img, .character-image img, .artifact-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.hero-description, .character-description, .artifact-description {
+    flex: 2;
+    min-width: 300px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    line-height: 1.6;
+}
+
 @media (max-width: 768px) {
-    .nav-arrows-outside {
-        width: calc(100% + 120px);
+    .hero-content, .character-content, .artifact-content {
+        flex-direction: column;
     }
     
-    .nav-arrow-outside.prev {
-        left: -60px;
-    }
-    
-    .nav-arrow-outside.next {
-        right: -60px;
+    .hero-image, .character-image, .artifact-image {
+        min-width: 100%;
     }
     
     .nav-arrow-outside {
         width: 40px;
         height: 40px;
         font-size: 22px;
+    }
+    
+    .nav-arrow-outside.prev {
+        margin-left: -50px;
+    }
+    
+    .nav-arrow-outside.next {
+        margin-right: -50px;
     }
 }
 </style>
