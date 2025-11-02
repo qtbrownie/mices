@@ -145,108 +145,79 @@
     }
     
     .hero-details.active, .character-details.active, .artifact-details.active {
-        display: block;
-    }
-    
-    /* Контейнеры для контента */
-    .hero-content, .character-content, .artifact-content {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        width: 100%;
-    }
-    
-    .hero-image, .character-image, .artifact-image {
-        flex: 1;
-        min-width: 300px;
-        border: 2px solid #ffcc00;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-    
-    .hero-image img, .character-image img, .artifact-image img {
-        width: 100%;
-        height: auto;
-        display: block;
-    }
-    
-    .hero-description, .character-description, .artifact-description {
-        flex: 2;
-        min-width: 300px;
-        padding: 15px;
-        background-color: rgba(0, 0, 0, 0.3);
-        border-radius: 10px;
-        line-height: 1.6;
-    }
-    
-    .hero-description h3, .character-description h3, .artifact-description h3 {
-        color: #ffcc00;
-        margin-bottom: 10px;
-        font-size: 24px;
-    }
-    
-    /* Стрелки за пределами рамки */
+    display: block;
+    position: relative; /* Добавляем это */
+}
+
+.details-container {
+    position: relative;
+    width: 100%;
+}
+
+.nav-arrows-outside {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% + 160px); /* Ширина + отступы */
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.nav-arrow-outside {
+    background-color: rgba(255, 204, 0, 0.9);
+    color: #1a1a2e;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    pointer-events: all;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.nav-arrow-outside.prev {
+    left: -80px; /* Фиксированный отступ слева */
+}
+
+.nav-arrow-outside.next {
+    right: -80px; /* Фиксированный отступ справа */
+}
+
+.nav-arrow-outside:hover {
+    background-color: #ffcc00;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+}
+
+@media (max-width: 768px) {
     .nav-arrows-outside {
-        position: absolute;
-        top: 50%;
-        left: -80px;
-        right: -80px;
-        transform: translateY(-50%);
-        display: flex;
-        justify-content: space-between;
-        pointer-events: none;
-        z-index: 10;
+        width: calc(100% + 120px);
+    }
+    
+    .nav-arrow-outside.prev {
+        left: -60px;
+    }
+    
+    .nav-arrow-outside.next {
+        right: -60px;
     }
     
     .nav-arrow-outside {
-        background-color: rgba(255, 204, 0, 0.9);
-        color: #1a1a2e;
-        border: none;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-        pointer-events: all;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        width: 40px;
+        height: 40px;
+        font-size: 22px;
     }
-    
-    .nav-arrow-outside:hover {
-        background-color: #ffcc00;
-        transform: scale(1.1);
-        box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
-    }
-    
-    /* Убираем старые стрелки внутри рамки */
-    .nav-arrows {
-        display: none;
-    }
-    
-    @media (max-width: 768px) {
-        .hero-content, .character-content, .artifact-content {
-            flex-direction: column;
-        }
-        
-        .hero-image, .character-image, .artifact-image {
-            min-width: 100%;
-        }
-        
-        .nav-arrows-outside {
-            left: -50px;
-            right: -50px;
-        }
-        
-        .nav-arrow-outside {
-            width: 40px;
-            height: 40px;
-            font-size: 22px;
-        }
-    }
+}
 </style>
 </head>
 <body>
