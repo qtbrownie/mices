@@ -197,11 +197,11 @@
     display: flex;
     justify-content: space-between;
     pointer-events: none;
-    z-index: 2;
+    z-index: 2; /* Стрелки выше контента */
 }
 
 .nav-arrow-outside {
-    background-color: #ffcc00; /* Непрозрачный желтый */
+    background-color: #ffcc00;
     color: #1a1a2e;
     border: none;
     border-radius: 50%;
@@ -216,16 +216,23 @@
     transition: all 0.3s ease;
     pointer-events: all;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    opacity: 1; /* Полная непрозрачность */
 }
 
 .nav-arrow-outside:hover {
-    background-color: #ffd633; /* Более светлый желтый при наведении */
+    background-color: #ffd633;
     transform: scale(1.1);
     box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
 }
 
 @media (max-width: 768px) {
+    .hero-content, .character-content, .artifact-content {
+        flex-direction: column;
+    }
+    
+    .hero-image, .character-image, .artifact-image {
+        min-width: 100%;
+    }
+    
     .nav-arrows-outside {
         left: -50px;
         right: -50px;
