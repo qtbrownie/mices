@@ -293,6 +293,52 @@
 .close-button:active {
     transform: scale(0.95);
 }
+
+.details-description h3 {
+    color: #ffcc00;
+    margin-bottom: 15px;
+    font-size: 24px;
+    border-bottom: 2px solid #ffcc00;
+    padding-bottom: 5px;
+}
+
+.details-description strong {
+    color: #ffcc00;
+    font-weight: 600;
+}
+
+.details-description p {
+    margin-bottom: 12px;
+    text-align: justify;
+}
+
+/* Карточки статусов */
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Улучшенные рамки */
+.frame {
+    /* существующие стили + */
+    background: linear-gradient(145deg, #16213e, #1a1a2e);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.details.active {
+    animation: fadeIn 0.3s ease-out;
+}
+        
 </style>
 </head>
 <body>
@@ -330,11 +376,13 @@
     </div>
     
     <!-- 5. Кристиан -->
-    <div class="hero-frame" data-id="5">
-        <img src="https://lh3.googleusercontent.com/pw/AP1GczN6BA0K41fNI1Sbv4izH-x_laV5qnt8FnKkA1PiqLVHwP8LeDHp6JOZ8kIpohuwpIOJWS8KUof178yopGBESDvOHMkeKshq4dMWmHCDDXZNamG2foNS7eejmzar5kTzV80pllH7PFL79dKMx7WVfEpK=w500-h500-s-no-gm?authuser=0" alt="Кристиан">
-        <div class="hero-name">Кристиан</div>
-        <div class="hero-status status-alive">Жив</div>
+    <div class="frame hero-frame" data-id="5">
+    <img src="..." alt="Кристиан">
+    <div class="name">Кристиан</div>
+    <div class="status status-alive">
+        <span class="status-icon">●</span> Жив
     </div>
+</div>
     
     <!-- 6. Пиф -->
     <div class="hero-frame" data-id="6">
@@ -442,26 +490,13 @@
 </div>
 
 <!-- Герой 5 - Кристиан -->
-<div id="hero-details-5" class="hero-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-hero">‹</button>
-            <button class="nav-arrow-outside next next-hero">›</button>
-        </div>
-        <div class="hero-content">
-            <div class="hero-image">
-                <img src="https://lh3.googleusercontent.com/pw/AP1GczN6BA0K41fNI1Sbv4izH-x_laV5qnt8FnKkA1PiqLVHwP8LeDHp6JOZ8kIpohuwpIOJWS8KUof178yopGBESDvOHMkeKshq4dMWmHCDDXZNamG2foNS7eejmzar5kTzV80pllH7PFL79dKMx7WVfEpK=w500-h500-s-no-gm?authuser=0" alt="Кристиан">
-            </div>
-            <div class="hero-description">
-                <h3>Кристиан</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Кристиан кажется не по годам умным и собранным. Он никогда не действует сгоряча, предпочитая сначала все обдумать и изучить.</p>
-                <p>К другим он относится со спокойной вежливостью, но за ней чувствуется стена - он никому не доверяет, пока сам не разберет человека по косточкам.</p>
-                <p>Его подход к убийству можно назвать искусством. Его не интересует простая расправа; ему важно, чтобы все было сделано чисто, красиво и аккуратно. Он получает наслаждение от эстетики идеально проведенного дела. Обгоревший труп приведет его в отчаяние, в то время как безупречная работа будет увенчана его личной меткой - тихим и гордым знаком мастера.</p>
-            </div>
-        </div>
-    </div>
+<div class="details-description">
+    <h3>Кристиан</h3>
+    <div class="status-badge status-alive">Жив</div>
+    <p><strong>Особенности:</strong> Интеллектуал, перфекционист, аналитик</p>
+    <p>Кристиан кажется не по годам умным и собранным. Он никогда не действует сгоряча, предпочитая сначала все обдумать и изучить.</p>
+    <p>К другим он относится со спокойной вежливостью, но за ней чувствуется стена - он никому не доверяет, пока сам не разберет человека по косточкам.</p>
+    <p>Его подход к убийству можно назвать искусством. Его не интересует простая расправа; ему важно, чтобы все было сделано чисто, красиво и аккуратно. Он получает наслаждение от эстетики идеально проведенного дела. Обгоревший труп приведет его в отчаяние, в то время как безупречная работа будет увенчана его личной меткой - тихим и гордым знаком мастера.</p>
 </div>
 
 <!-- Герой 6 - Пиф -->
@@ -1121,6 +1156,15 @@
                     if (selectedDetail) {
                         selectedDetail.classList.add('active');
                     }
+                    function highlightText() {
+    const descriptions = document.querySelectorAll('.details-description');
+    descriptions.forEach(desc => {
+        let html = desc.innerHTML;
+        // Подсветка статусов и ключевых слов
+        html = html.replace(/(Жив|Мёртв|Неизвестен)/g, '<mark class="highlight">$1</mark>');
+        desc.innerHTML = html;
+    });
+}
                 });
             });
             
