@@ -45,7 +45,7 @@
         margin-bottom: 30px;
     }
     
-    .hero-frame, .character-frame, .artifact-frame {
+    .frame {
         width: 120px;
         height: 150px;
         border: 3px solid #ffcc00;
@@ -54,26 +54,27 @@
         cursor: pointer;
         transition: all 0.3s ease;
         position: relative;
-        background-color: #16213e;
+        background: linear-gradient(145deg, #16213e, #1a1a2e);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
     
-    .hero-frame:hover, .character-frame:hover, .artifact-frame:hover {
+    .frame:hover {
         transform: scale(1.05);
         box-shadow: 0 0 15px rgba(255, 204, 0, 0.7);
     }
     
-    .hero-frame.selected, .character-frame.selected, .artifact-frame.selected {
+    .frame.selected {
         border-color: #ffffff;
         box-shadow: 0 0 20px rgba(255, 51, 51, 0.8);
     }
     
-    .hero-frame img, .character-frame img, .artifact-frame img {
+    .frame img {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
     
-    .hero-name, .character-name, .artifact-name {
+    .name {
         position: absolute;
         bottom: 20px;
         left: 0;
@@ -89,7 +90,7 @@
         bottom: 0;
     }
     
-    .hero-status, .character-status {
+    .status {
         position: absolute;
         bottom: 0;
         left: 0;
@@ -101,13 +102,6 @@
     }
     
     .artifact-type {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        text-align: center;
-        padding: 3px;
-        font-size: 11px;
         background-color: rgba(76, 175, 80, 0.8);
         color: white;
     }
@@ -128,975 +122,410 @@
     }
 
     .status-playing {
-    background-color: rgba(255, 105, 180, 0.8); /* Розовый цвет */
-    color: white;
+        background-color: rgba(255, 105, 180, 0.8);
+        color: white;
     }
-    /* Новые стили для контейнера и стрелок */
+
+    .details {
+        display: none;
+        margin-top: 30px;
+        background-color: #16213e;
+        border: 3px solid #ffcc00;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+        position: relative;
+    }
+
+    .details.active {
+        display: block;
+        animation: fadeIn 0.3s ease-out;
+    }
+
     .details-container {
         position: relative;
         width: 100%;
+        z-index: 1;
     }
-    
-    /* Основные контейнеры */
-.hero-details, .character-details, .artifact-details {
-    display: none;
-    margin-top: 30px;
-    background-color: #16213e;
-    border: 3px solid #ffcc00;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
-    position: relative;
-}
 
-.hero-details.active, .character-details.active, .artifact-details.active {
-    display: block;
-}
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        width: 100%;
+        position: relative;
+    }
 
-.details-container {
-    position: relative;
-    width: 100%;
-    z-index: 1; /* Контент выше */
-}
+    .details-image {
+        flex: 1;
+        min-width: 300px;
+        border: 2px solid #ffcc00;
+        border-radius: 10px;
+        overflow: hidden;
+    }
 
-/* Контентные блоки */
-.hero-content, .character-content, .artifact-content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
-    position: relative;
-}
+    .details-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
 
-.hero-image, .character-image, .artifact-image {
-    flex: 1;
-    min-width: 300px;
-    border: 2px solid #ffcc00;
-    border-radius: 10px;
-    overflow: hidden;
-}
+    .details-description {
+        flex: 2;
+        min-width: 300px;
+        padding: 15px;
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        line-height: 1.6;
+    }
 
-.hero-image img, .character-image img, .artifact-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
+    .details-description h3 {
+        color: #ffcc00;
+        margin-bottom: 15px;
+        font-size: 24px;
+        border-bottom: 2px solid #ffcc00;
+        padding-bottom: 5px;
+    }
 
-.hero-description, .character-description, .artifact-description {
-    flex: 2;
-    min-width: 300px;
-    padding: 15px;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    line-height: 1.6;
-}
+    .details-description strong {
+        color: #ffcc00;
+        font-weight: 600;
+    }
 
-/* Стрелки сбоку от рамки во весь размер */
-.nav-arrows-outside {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -60px;
-    right: -60px;
-    display: flex;
-    justify-content: space-between;
-    pointer-events: none;
-    z-index: 2;
-}
+    .details-description p {
+        margin-bottom: 12px;
+        text-align: justify;
+    }
 
-.nav-arrow-outside {
-    background-color: #ffcc00; /* Непрозрачный желтый */
-    color: #1a1a2e;
-    border: none;
-    width: 50px;
-    height: 100%; /* Во всю высоту рамки */
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    pointer-events: all;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 0;
-    opacity: 1;
-}
+    .status-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
 
-.nav-arrow-outside.prev {
-    border-radius: 10px 0 0 10px;
-}
-
-.nav-arrow-outside.next {
-    border-radius: 0 10px 10px 0;
-}
-
-.nav-arrow-outside:hover {
-    background-color: #ffd633;
-    box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
-}
-
-/* Обеспечиваем правильное отображение контента */
-.details-container {
-    position: relative;
-    width: 100%;
-    z-index: 1;
-}
-
-.hero-content, .character-content, .artifact-content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
-    position: relative;
-}
-
-@media (max-width: 768px) {
     .nav-arrows-outside {
-        left: -40px;
-        right: -40px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -60px;
+        right: -60px;
+        display: flex;
+        justify-content: space-between;
+        pointer-events: none;
+        z-index: 2;
     }
-    
+
     .nav-arrow-outside {
-        width: 40px;
-        font-size: 22px;
+        background-color: #ffcc00;
+        color: #1a1a2e;
+        border: none;
+        width: 50px;
+        height: 100%;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        pointer-events: all;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        border-radius: 0;
+        opacity: 1;
     }
-}
-.close-button {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background-color: #ffcc00;
-    color: #1a1a2e;
-    border: 2px solid #1a1a2e;
-    border-radius: 8px;
-    width: 40px;
-    height: 30px;
-    font-size: 18px;
-    font-weight: 900;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    font-family: Arial, sans-serif;
-}
 
-.close-button:hover {
-    background-color: #ffd633;
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-}
+    .nav-arrow-outside.prev {
+        border-radius: 10px 0 0 10px;
+    }
 
-.close-button:active {
-    transform: scale(0.95);
-}
-</style>
+    .nav-arrow-outside.next {
+        border-radius: 0 10px 10px 0;
+    }
+
+    .nav-arrow-outside:hover {
+        background-color: #ffd633;
+        box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+    }
+
+    .close-button {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background-color: #ffcc00;
+        color: #1a1a2e;
+        border: 2px solid #1a1a2e;
+        border-radius: 8px;
+        width: 40px;
+        height: 30px;
+        font-size: 18px;
+        font-weight: 900;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        font-family: Arial, sans-serif;
+    }
+
+    .close-button:hover {
+        background-color: #ffd633;
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .close-button:active {
+        transform: scale(0.95);
+    }
+
+    .highlight {
+        background-color: #ffcc00;
+        color: #1a1a2e;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+        .nav-arrows-outside {
+            left: -40px;
+            right: -40px;
+        }
+        
+        .nav-arrow-outside {
+            width: 40px;
+            font-size: 22px;
+        }
+    }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Мыши в сугробе</h1>
         
-   <h2>Герои</h2>
-<div class="heroes-container">
-    <!-- 1. Амьен -->
-    <div class="hero-frame" data-id="1">
-        <img src="https://lh3.googleusercontent.com/pw/AP1GczNeJ7YNEpW1kV-GgxBAILh1p_Ygc8Ln3dJRFV_oI0NVkXp3vHhG69nB2zM8583Daqcc1KDcMjl8ThpQ8w8Ta3mOa_avDgIpYr-gLL6Eh7kr0LhbWeWBhE88oQa9WNpivNB2fW4oxOIAnB4aXH1VYFGk=w400-h400-s-no-gm?authuser=0" alt="Амьен">
-        <div class="hero-name">Амьен</div>
-        <div class="hero-status status-alive">Жив</div>
-    </div>
-    
-    <!-- 2. Брут -->
-    <div class="hero-frame" data-id="2">
-        <img src="https://lh3.googleusercontent.com/pw/AP1GczNSC6cxIrDmaRLBx83HRk6L1BC0OaZ6dj2vzOInoRFNvQ7Czb30RxXyQ-1oF21OLIJMSZGqxOq9xA48oeL_3ovMIgCTVndFtOEKjuFpRpoK2zKaPJFPQIZ8b37z7gFr2A8eDaJJAXEoojm0GFrtqFHW=w400-h400-s-no-gm?authuser=0" alt="Брут">
-        <div class="hero-name">Брут</div>
-        <div class="hero-status status-alive">Жив</div>
-    </div>
-    
-    <!-- 3. Влада -->
-    <div class="hero-frame" data-id="3">
-        <img src="https://lh3.googleusercontent.com/pw/AP1GczNKxOQmLd_qYfBGHp9pF7hNZ3JvXp2JFNKmfm0EXRIKCGjhj_sTOnWPR4hCuXcmW0k1kpFDUiMQXhGQWqmmc61dnU1eTQP3AMY63SmPh8skhLkKIk7eOUawAlYi6fMyPKr_luAQ__AJxWv-aBmknlhb=w500-h500-s-no-gm?authuser=0" alt="Влада">
-        <div class="hero-name">Влада</div>
-        <div class="hero-status status-alive">Жив</div>
-    </div>
-    
-    <!-- 4. Клиторал -->
-    <div class="hero-frame" data-id="4">
-        <img src="https://lh3.googleusercontent.com/pw/AP1GczOL5y6HvDXARJ6ShBWIxl75XzUYBNLFUEJRNAlNBqoLTV9vHuURO34a7Q3fl6I-JwwRwS3lGFIlPouu1UHsTzaTu9QGkkDRySGNDXnoqTDGqBqXznuiHM_1-z6riB3LKF5La-HguCDDsuvvnHm6vMIX=w719-h500-s-no-gm?authuser=0" alt="Клиторал">
-        <div class="hero-name">Клиторал</div>
-        <div class="hero-status status-dead">Мёртв</div>
-    </div>
-    
-    <!-- 5. Кристиан -->
-    <div class="hero-frame" data-id="5">
-        <img src="https://lh3.googleusercontent.com/pw/AP1GczN6BA0K41fNI1Sbv4izH-x_laV5qnt8FnKkA1PiqLVHwP8LeDHp6JOZ8kIpohuwpIOJWS8KUof178yopGBESDvOHMkeKshq4dMWmHCDDXZNamG2foNS7eejmzar5kTzV80pllH7PFL79dKMx7WVfEpK=w500-h500-s-no-gm?authuser=0" alt="Кристиан">
-        <div class="hero-name">Кристиан</div>
-        <div class="hero-status status-alive">Жив</div>
-    </div>
-    
-    <!-- 6. Пиф -->
-    <div class="hero-frame" data-id="6">
-        <img src="https://via.placeholder.com/120x150/7a7a7a/ffffff?text=Пиф" alt="Пиф">
-        <div class="hero-name">Пиф</div>
-        <div class="hero-status status-unknown">Неизвестен</div>
-    </div>
-    
-    <!-- 7. Шустрик -->
-    <div class="hero-frame" data-id="7">
-        <img src="https://lh3.googleusercontent.com/pw/AP1GczPSUTiH1RzkEa-op6LgCdki1nLEf-MLM2sbuiYAH7Hz1Tyfc_KlNBw5QcuTsvQt3HVAKEC1_Z72m0EqoBa0quWBcSlD0kgQvbH9WO3Kapj5VFiRIzzY2ch-WI4wKZSG-A2TlKMusd8R9o0I3zddWTnE=w500-h500-s-no-gm?authuser=0" alt="Шустрик">
-        <div class="hero-name">Шустрик</div>
-        <div class="hero-status status-dead">Мёртв</div>
-    </div>
-</div>
-
-<!-- Герой 1 - Амьен -->
-<div id="hero-details-1" class="hero-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-hero">‹</button>
-            <button class="nav-arrow-outside next next-hero">›</button>
-        </div>
-        <div class="hero-content">
-            <div class="hero-image">
+        <h2>Герои</h2>
+        <div class="heroes-container">
+            <!-- 1. Амьен -->
+            <div class="frame hero-frame" data-id="1">
                 <img src="https://lh3.googleusercontent.com/pw/AP1GczNeJ7YNEpW1kV-GgxBAILh1p_Ygc8Ln3dJRFV_oI0NVkXp3vHhG69nB2zM8583Daqcc1KDcMjl8ThpQ8w8Ta3mOa_avDgIpYr-gLL6Eh7kr0LhbWeWBhE88oQa9WNpivNB2fW4oxOIAnB4aXH1VYFGk=w400-h400-s-no-gm?authuser=0" alt="Амьен">
+                <div class="name">Амьен</div>
+                <div class="status status-alive">Жив</div>
             </div>
-            <div class="hero-description">
-                <h3>Амьен</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Варвар с внешностью барда, чья судьба полна противоречий. Похищенный в детстве во время набега, он был воспитан вождем варваров как собственный сын, научившись быть безжалостным воином и искусным манипулятором.</p>
-                <p>Узнав правду о своем происхождении в 14 лет, он сбежал и два года скитался в поисках себя. Однако суровая школа жизни взяла верх - Амьен принял свою природу и вернулся к приёмному отцу, чтобы полностью посвятить себя ремеслу варвара.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Герой 2 - Брут -->
-<div id="hero-details-2" class="hero-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-hero">‹</button>
-            <button class="nav-arrow-outside next next-hero">›</button>
-        </div>
-        <div class="hero-content">
-            <div class="hero-image">
+            
+            <!-- 2. Брут -->
+            <div class="frame hero-frame" data-id="2">
                 <img src="https://lh3.googleusercontent.com/pw/AP1GczNSC6cxIrDmaRLBx83HRk6L1BC0OaZ6dj2vzOInoRFNvQ7Czb30RxXyQ-1oF21OLIJMSZGqxOq9xA48oeL_3ovMIgCTVndFtOEKjuFpRpoK2zKaPJFPQIZ8b37z7gFr2A8eDaJJAXEoojm0GFrtqFHW=w400-h400-s-no-gm?authuser=0" alt="Брут">
+                <div class="name">Брут</div>
+                <div class="status status-alive">Жив</div>
             </div>
-            <div class="hero-description">
-                <h3>Брут</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Воин благородных кровей, поступивший на службу к королю. Однако его истинная личность и цель - прикрытие. Является агентом Тайного Мышиного Общества, внедренный в высшие эшелоны власти. Об этом стало известно другим персонажам после появления в сюжете Авантюрина.</p>
-                <p>Внешне он спокоен и деликатен, но внутри движим тщеславием и жаждой признания.</p>
-                <p>Все это дополняется его элегантным и запоминающимся образом: Брут всегда носит шляпу и не расстается с рапирой, подчеркивая свой статус и скрытую опасность.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Герой 3 - Влада -->
-<div id="hero-details-3" class="hero-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-hero">‹</button>
-            <button class="nav-arrow-outside next next-hero">›</button>
-        </div>
-        <div class="hero-content">
-            <div class="hero-image">
+            
+            <!-- 3. Влада -->
+            <div class="frame hero-frame" data-id="3">
                 <img src="https://lh3.googleusercontent.com/pw/AP1GczNKxOQmLd_qYfBGHp9pF7hNZ3JvXp2JFNKmfm0EXRIKCGjhj_sTOnWPR4hCuXcmW0k1kpFDUiMQXhGQWqmmc61dnU1eTQP3AMY63SmPh8skhLkKIk7eOUawAlYi6fMyPKr_luAQ__AJxWv-aBmknlhb=w500-h500-s-no-gm?authuser=0" alt="Влада">
+                <div class="name">Влада</div>
+                <div class="status status-alive">Жив</div>
             </div>
-            <div class="hero-description">
-                <h3>Влада</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Чародейка, которая доказала, что если очень захотеть, то можно не только в космос полететь, но и с дьяволом договориться. Родная семья её не любила за отсутствие магических талантов, и, чтобы исправить эту несправедливость, она заключила контракт с силами зла.</p>
-                <p>Реакция родителей на её новый статус чернокнижницы была настолько негативной, что девушке пришлось... ну, вы знаете, решить семейный вопрос раз и навсегда. Теперь она свободна и живёт со своим потусторонним покровителем.</p>
-                <p>Её главная цель - собирать «неупокоенные души» в качестве платы по контракту. Местное кладбище уже не удовлетворяет её аппетиты, и теперь Влада мечтает о большем - например, о гигантском поле битвы, где можно будет собрать щедрый «урожай» душ. Несмотря на милую внешность (маленький рост, длинные чёрные волосы) и веселый нрав, она злопамятна и совершенно ёбнута, что делает её идеальным партнёром для приключений сомнительной нравственности.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Герой 4 - Клиторал -->
-<div id="hero-details-4" class="hero-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-hero">‹</button>
-            <button class="nav-arrow-outside next next-hero">›</button>
-        </div>
-        <div class="hero-content">
-            <div class="hero-image">
+            
+            <!-- 4. Клиторал -->
+            <div class="frame hero-frame" data-id="4">
                 <img src="https://lh3.googleusercontent.com/pw/AP1GczOL5y6HvDXARJ6ShBWIxl75XzUYBNLFUEJRNAlNBqoLTV9vHuURO34a7Q3fl6I-JwwRwS3lGFIlPouu1UHsTzaTu9QGkkDRySGNDXnoqTDGqBqXznuiHM_1-z6riB3LKF5La-HguCDDsuvvnHm6vMIX=w719-h500-s-no-gm?authuser=0" alt="Клиторал">
+                <div class="name">Клиторал</div>
+                <div class="status status-dead">Мёртв</div>
             </div>
-            <div class="hero-description">
-                <h3>Клиторал</h3>
-                <p><strong>Статус:</strong> Мёртв</p>
-                <p>Варвар с бурным прошлым и тяжелым характером, выросший в уличных Дербышках и прошедший мышеловку. Он был вспыльчив и агрессивен. Однако его буйный нрав мгновенно сменялся неслыханной разговорчивостью, стоило ему затянуться сигарой и выпить кока-колы.</p>
-                <p>Изначально примкнув к ордену с целью наживы, он кардинально сменил мотивацию, обнаружив королевские склады с сигарами и колой. Его новой целью стала защита этого рая, что в конечном итоге привело к его героической гибели, защищая Алису.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Герой 5 - Кристиан -->
-<div id="hero-details-5" class="hero-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-hero">‹</button>
-            <button class="nav-arrow-outside next next-hero">›</button>
-        </div>
-        <div class="hero-content">
-            <div class="hero-image">
+            
+            <!-- 5. Кристиан -->
+            <div class="frame hero-frame" data-id="5">
                 <img src="https://lh3.googleusercontent.com/pw/AP1GczN6BA0K41fNI1Sbv4izH-x_laV5qnt8FnKkA1PiqLVHwP8LeDHp6JOZ8kIpohuwpIOJWS8KUof178yopGBESDvOHMkeKshq4dMWmHCDDXZNamG2foNS7eejmzar5kTzV80pllH7PFL79dKMx7WVfEpK=w500-h500-s-no-gm?authuser=0" alt="Кристиан">
+                <div class="name">Кристиан</div>
+                <div class="status status-alive">Жив</div>
             </div>
-            <div class="hero-description">
-                <h3>Кристиан</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Кристиан кажется не по годам умным и собранным. Он никогда не действует сгоряча, предпочитая сначала все обдумать и изучить.</p>
-                <p>К другим он относится со спокойной вежливостью, но за ней чувствуется стена - он никому не доверяет, пока сам не разберет человека по косточкам.</p>
-                <p>Его подход к убийству можно назвать искусством. Его не интересует простая расправа; ему важно, чтобы все было сделано чисто, красиво и аккуратно. Он получает наслаждение от эстетики идеально проведенного дела. Обгоревший труп приведет его в отчаяние, в то время как безупречная работа будет увенчана его личной меткой - тихим и гордым знаком мастера.</p>
+            
+            <!-- 6. Пиф -->
+            <div class="frame hero-frame" data-id="6">
+                <img src="https://via.placeholder.com/120x150/7a7a7a/ffffff?text=Пиф" alt="Пиф">
+                <div class="name">Пиф</div>
+                <div class="status status-unknown">Неизвестен</div>
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- Герой 6 - Пиф -->
-<div id="hero-details-6" class="hero-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-hero">‹</button>
-            <button class="nav-arrow-outside next next-hero">›</button>
-        </div>
-        <div class="hero-content">
-            <div class="hero-image">
-                <img src="https://via.placeholder.com/400x500/7a7a7a/ffffff?text=Пиф" alt="Пиф">
-            </div>
-            <div class="hero-description">
-                <h3>Пиф</h3>
-                <p><strong>Статус:</strong> Неизвестен</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Герой 7 - Шустрик -->
-<div id="hero-details-7" class="hero-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-hero">‹</button>
-            <button class="nav-arrow-outside next next-hero">›</button>
-        </div>
-        <div class="hero-content">
-            <div class="hero-image">
+            
+            <!-- 7. Шустрик -->
+            <div class="frame hero-frame" data-id="7">
                 <img src="https://lh3.googleusercontent.com/pw/AP1GczPSUTiH1RzkEa-op6LgCdki1nLEf-MLM2sbuiYAH7Hz1Tyfc_KlNBw5QcuTsvQt3HVAKEC1_Z72m0EqoBa0quWBcSlD0kgQvbH9WO3Kapj5VFiRIzzY2ch-WI4wKZSG-A2TlKMusd8R9o0I3zddWTnE=w500-h500-s-no-gm?authuser=0" alt="Шустрик">
-            </div>
-            <div class="hero-description">
-                <h3>Шустрик</h3>
-                <p><strong>Статус:</strong> Мёртв</p>
-                <p>Был редкой крыской в мире мышей, что делало его особенно узнаваемым. Талантливый IT-специалист из будущего, случайно попавший в средневековый мир мышей благодаря машине времени. Обладая знаниями о технологиях, он быстро заслужил расположение местного Короля, создавая для него различные изобретения.</p>
-                <p>Со временем крысюк осознал, что хочет помогать не только правителю, но и простым жителям, что создало конфликт интересов. Его любознательность и коммуникабельность помогли ему обрести верных друзей среди местных жителей.</p>
-                <p>Гибель Шустрика наступила от рук Кристиана, который обезглавил крысюка в то время, когда он под гипнозом печенек катался на качельках.</p>
+                <div class="name">Шустрик</div>
+                <div class="status status-dead">Мёртв</div>
             </div>
         </div>
-    </div>
-</div>
-        
-        <h2>Персонажи</h2>
-<div class="characters-container">
-    <!-- Авантюрин -->
-    <div class="character-frame" data-id="1">
-        <img src="https://via.placeholder.com/120x150/4a8a4a/ffffff?text=Авантюрин" alt="Авантюрин">
-        <div class="character-name">Авантюрин</div>
-        <div class="character-status status-alive">Жив</div>
-    </div>
-    
-    <!-- Агат -->
-    <div class="character-frame" data-id="2">
-        <img src="https://via.placeholder.com/120x150/7a8a4a/ffffff?text=Агат" alt="Агат">
-        <div class="character-name">Агат</div>
-        <div class="character-status status-alive">Жив</div>
-    </div>
-    
-    <!-- Алиса -->
-    <div class="character-frame" data-id="3">
-        <img src="https://via.placeholder.com/120x150/8a6a4a/ffffff?text=Алиса" alt="Алиса">
-        <div class="character-name">Алиса</div>
-        <div class="character-status status-unknown">Неизвестен</div>
-    </div>
-    
-    <!-- Бен -->
-    <div class="character-frame" data-id="4">
-        <img src="https://via.placeholder.com/120x150/4a6a8a/ffffff?text=Бен" alt="Бен">
-        <div class="character-name">Бен</div>
-        <div class="character-status status-alive">Жив</div>
-    </div>
-    
-    <!-- Жан -->
-    <div class="character-frame" data-id="5">
-        <img src="https://via.placeholder.com/120x150/8a4a4a/ffffff?text=Жан" alt="Жан">
-        <div class="character-name">Жан</div>
-        <div class="character-status status-unknown">Неизвестен</div>
-    </div>
-    
-    <!-- Руби -->
-<div class="character-frame" data-id="6">
-    <img src="https://via.placeholder.com/120x150/8a4a7a/ffffff?text=Руби" alt="Руби">
-    <div class="character-name">Руби</div>
-    <div class="character-status status-alive">Жив</div>
-</div>
-    
-    <!-- Сапфир -->
-    <div class="character-frame" data-id="7">
-        <img src="https://via.placeholder.com/120x150/4a4a6a/ffffff?text=Сапфир" alt="Сапфир">
-        <div class="character-name">Сапфир</div>
-        <div class="character-status status-alive">Жив</div>
-    </div>
-    
-    <!-- Толик -->
-    <div class="character-frame" data-id="8">
-        <img src="https://via.placeholder.com/120x150/4a4a8a/ffffff?text=Толик" alt="Толик">
-        <div class="character-name">Толик</div>
-        <div class="character-status status-alive">Жив</div>
-    </div>
-    
-    <!-- Топаз -->
-    <div class="character-frame" data-id="9">
-        <img src="https://via.placeholder.com/120x150/8a8a4a/ffffff?text=Топаз" alt="Топаз">
-        <div class="character-name">Топаз</div>
-        <div class="character-status status-alive">Жив</div>
-    </div>
-    
-    <!-- Циркон -->
-    <div class="character-frame" data-id="10">
-        <img src="https://via.placeholder.com/120x150/8a8a6a/ffffff?text=Циркон" alt="Циркон">
-        <div class="character-name">Циркон</div>
-        <div class="character-status status-alive">Жив</div>
-    </div>
-    
-    <!-- Элиот -->
-    <div class="character-frame" data-id="11">
-        <img src="https://via.placeholder.com/120x150/6a4a8a/ffffff?text=Элиот" alt="Элиот">
-        <div class="character-name">Элиот</div>
-        <div class="character-status status-alive">Жив</div>
-    </div>
-    
-    <!-- Эми -->
-    <div class="character-frame" data-id="12">
-        <img src="https://lh3.googleusercontent.com/pw/AP1GczOU7DjVK_VgntSVUUktsHcP3Nykdc9CXkmxCOFKdXhsQq2AUGBZcAUShU1qtnL7mZOQZAGK2Pns9mvDoiWrk9JHY1rc6khVLMSWVIPBKuygyqkX38f6lStStBLpIHeSfbxV1skxGOxKVxGGqkjQ06AC=w715-h953-s-no-gm?authuser=0" alt="Эми">
-        <div class="character-name">Эми</div>
-        <div class="character-status status-playing">Играет</div>
-    </div>
-    
-    <!-- Неизвестный персонаж 8 (Мечник) -->
-    <div class="character-frame" data-id="13">
-        <img src="https://via.placeholder.com/120x150/4a8a4a/ffffff?text=Мечник" alt="Мечник">
-        <div class="character-name">Мечник</div>
-        <div class="character-status status-alive">Жив</div>
-    </div>
-    
-    <!-- Неизвестный персонаж 9 (Заказчик) -->
-    <div class="character-frame" data-id="14">
-        <img src="https://via.placeholder.com/120x150/4a8a4a/ffffff?text=Заказчик" alt="Заказчик">
-        <div class="character-name">Заказчик</div>
-        <div class="character-status status-alive">Жив</div>
-    </div>
-</div>
 
-<!-- Персонаж 1 - Авантюрин -->
-<div id="character-details-1" class="character-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-character">‹</button>
-            <button class="nav-arrow-outside next next-character">›</button>
-        </div>
-        <div class="character-content">
-            <div class="character-image">
-                <img src="https://via.placeholder.com/400x500/4a8a4a/ffffff?text=Авантюрин" alt="Авантюрин">
+        <!-- Герой 1 - Амьен -->
+        <div id="hero-details-1" class="details hero-details">
+            <div class="details-container">
+                <button class="close-button">×</button>
+                <div class="nav-arrows-outside">
+                    <button class="nav-arrow-outside prev prev-hero">‹</button>
+                    <button class="nav-arrow-outside next next-hero">›</button>
+                </div>
+                <div class="content">
+                    <div class="details-image">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczNeJ7YNEpW1kV-GgxBAILh1p_Ygc8Ln3dJRFV_oI0NVkXp3vHhG69nB2zM8583Daqcc1KDcMjl8ThpQ8w8Ta3mOa_avDgIpYr-gLL6Eh7kr0LhbWeWBhE88oQa9WNpivNB2fW4oxOIAnB4aXH1VYFGk=w400-h400-s-no-gm?authuser=0" alt="Амьен">
+                    </div>
+                    <div class="details-description">
+                        <h3>Амьен</h3>
+                        <div class="status-badge status-alive">Жив</div>
+                        <p><strong>Особенности:</strong> Варвар с внешностью барда</p>
+                        <p>Варвар с внешностью барда, чья судьба полна противоречий. Похищенный в детстве во время набега, он был воспитан вождем варваров как собственный сын, научившись быть безжалостным воином и искусным манипулятором.</p>
+                        <p>Узнав правду о своем происхождении в 14 лет, он сбежал и два года скитался в поисках себя. Однако суровая школа жизни взяла верх - Амьен принял свою природу и вернулся к приёмному отцу, чтобы полностью посвятить себя ремеслу варвара.</p>
+                    </div>
+                </div>
             </div>
-            <div class="character-description">
-                <h3>Авантюрин</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Капитан Бриллиантовой Лапки</p>
-                <p>Вызывает впечатление активной, но слегка рассеянной мышии, но пользуется большим уважением в команде, за счёт чего - пока неизвестно.</p>
-                <p>Является основателем Тайного Мышинного Общества.</p>
-            </div>
         </div>
-    </div>
-</div>
 
-<!-- Персонаж 2 - Агат -->
-<div id="character-details-2" class="character-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-character">‹</button>
-            <button class="nav-arrow-outside next next-character">›</button>
-        </div>
-        <div class="character-content">
-            <div class="character-image">
-                <img src="https://via.placeholder.com/400x500/7a8a4a/ffffff?text=Агат" alt="Агат">
+        <!-- Герой 2 - Брут -->
+        <div id="hero-details-2" class="details hero-details">
+            <div class="details-container">
+                <button class="close-button">×</button>
+                <div class="nav-arrows-outside">
+                    <button class="nav-arrow-outside prev prev-hero">‹</button>
+                    <button class="nav-arrow-outside next next-hero">›</button>
+                </div>
+                <div class="content">
+                    <div class="details-image">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczNSC6cxIrDmaRLBx83HRk6L1BC0OaZ6dj2vzOInoRFNvQ7Czb30RxXyQ-1oF21OLIJMSZGqxOq9xA48oeL_3ovMIgCTVndFtOEKjuFpRpoK2zKaPJFPQIZ8b37z7gFr2A8eDaJJAXEoojm0GFrtqFHW=w400-h400-s-no-gm?authuser=0" alt="Брут">
+                    </div>
+                    <div class="details-description">
+                        <h3>Брут</h3>
+                        <div class="status-badge status-alive">Жив</div>
+                        <p><strong>Особенности:</strong> Агент Тайного Мышиного Общества</p>
+                        <p>Воин благородных кровей, поступивший на службу к королю. Однако его истинная личность и цель - прикрытие. Является агентом Тайного Мышиного Общества, внедренный в высшие эшелоны власти. Об этом стало известно другим персонажам после появления в сюжете Авантюрина.</p>
+                        <p>Внешне он спокоен и деликатен, но внутри движим тщеславием и жаждой признания.</p>
+                        <p>Все это дополняется его элегантным и запоминающимся образом: Брут всегда носит шляпу и не расстается с рапирой, подчеркивая свой статус и скрытную опасность.</p>
+                    </div>
+                </div>
             </div>
-            <div class="character-description">
-                <h3>Агат</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Кок на Бриллиантовой лапке, с деревянной ногой, которую он не стесняется использовать в воспитательных целях.</p>
-                <p>Обладает скверным характером.</p>
-                <p>Может приготовить деликатес из чего угодно, даже если на вид и запах оно больше похоже на говно скунса.</p>
-            </div>
         </div>
-    </div>
-</div>
 
-<!-- Персонаж 3 - Алиса -->
-<div id="character-details-3" class="character-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-character">‹</button>
-            <button class="nav-arrow-outside next next-character">›</button>
-        </div>
-        <div class="character-content">
-            <div class="character-image">
-                <img src="https://via.placeholder.com/400x500/8a6a4a/ffffff?text=Алиса" alt="Алиса">
+        <!-- Герой 3 - Влада -->
+        <div id="hero-details-3" class="details hero-details">
+            <div class="details-container">
+                <button class="close-button">×</button>
+                <div class="nav-arrows-outside">
+                    <button class="nav-arrow-outside prev prev-hero">‹</button>
+                    <button class="nav-arrow-outside next next-hero">›</button>
+                </div>
+                <div class="content">
+                    <div class="details-image">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczNKxOQmLd_qYfBGHp9pF7hNZ3JvXp2JFNKmfm0EXRIKCGjhj_sTOnWPR4hCuXcmW0k1kpFDUiMQXhGQWqmmc61dnU1eTQP3AMY63SmPh8skhLkKIk7eOUawAlYi6fMyPKr_luAQ__AJxWv-aBmknlhb=w500-h500-s-no-gm?authuser=0" alt="Влада">
+                    </div>
+                    <div class="details-description">
+                        <h3>Влада</h3>
+                        <div class="status-badge status-alive">Жив</div>
+                        <p><strong>Особенности:</strong> Чародейка с контрактом</p>
+                        <p>Чародейка, которая доказала, что если очень захотеть, то можно не только в космос полететь, но и с дьяволом договориться. Родная семья её не любила за отсутствие магических талантов, и, чтобы исправить эту несправедливость, она заключила контракт с силами зла.</p>
+                        <p>Реакция родителей на её новый статус чернокнижницы была настолько негативной, что девушке пришлось... ну, вы знаете, решить семейный вопрос раз и навсегда. Теперь она свободна и живёт со своим потусторонним покровителем.</p>
+                        <p>Её главная цель - собирать «неупокоенные души» в качестве платы по контракту. Местное кладбище уже не удовлетворяет её аппетиты, и теперь Влада мечтает о большем - например, о гигантском поле битвы, где можно будет собрать щедрый «урожай» душ. Несмотря на милую внешность (маленький рост, длинные чёрные волосы) и веселый нрав, она злопамятна и совершенно ёбнута, что делает её идеальным партнёром для приключений сомнительной нравственности.</p>
+                    </div>
+                </div>
             </div>
-            <div class="character-description">
-                <h3>Алиса</h3>
-                <p><strong>Статус:</strong> Неизвестен</p>
-                <p>Загадочная чародейка, встреченная Владой в подземельях замка Северного Королевства.</p>
-                <p>Не проявляет враждебности.</p>
-                <p>Незнакома с группой.</p>
-            </div>
         </div>
-    </div>
-</div>
 
-<!-- Персонаж 4 - Бен -->
-<div id="character-details-4" class="character-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-character">‹</button>
-            <button class="nav-arrow-outside next next-character">›</button>
-        </div>
-        <div class="character-content">
-            <div class="character-image">
-                <img src="https://via.placeholder.com/400x500/4a6a8a/ffffff?text=Бен" alt="Бен">
+        <!-- Герой 4 - Клиторал -->
+        <div id="hero-details-4" class="details hero-details">
+            <div class="details-container">
+                <button class="close-button">×</button>
+                <div class="nav-arrows-outside">
+                    <button class="nav-arrow-outside prev prev-hero">‹</button>
+                    <button class="nav-arrow-outside next next-hero">›</button>
+                </div>
+                <div class="content">
+                    <div class="details-image">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczOL5y6HvDXARJ6ShBWIxl75XzUYBNLFUEJRNAlNBqoLTV9vHuURO34a7Q3fl6I-JwwRwS3lGFIlPouu1UHsTzaTu9QGkkDRySGNDXnoqTDGqBqXznuiHM_1-z6riB3LKF5La-HguCDDsuvvnHm6vMIX=w719-h500-s-no-gm?authuser=0" alt="Клиторал">
+                    </div>
+                    <div class="details-description">
+                        <h3>Клиторал</h3>
+                        <div class="status-badge status-dead">Мёртв</div>
+                        <p><strong>Особенности:</strong> Варвар с сигарами и колой</p>
+                        <p>Варвар с бурным прошлым и тяжелым характером, выросший в уличных Дербышках и прошедший мышеловку. Он был вспыльчив и агрессивен. Однако его буйный нрав мгновенно сменялся неслыханной разговорчивостью, стоило ему затянуться сигарой и выпить кока-колы.</p>
+                        <p>Изначально примкнув к ордену с целью наживы, он кардинально сменил мотивацию, обнаружив королевские склады с сигарами и колой. Его новой целью стала защита этого рая, что в конечном итоге привело к его героической гибели, защищая Алису.</p>
+                    </div>
+                </div>
             </div>
-            <div class="character-description">
-                <h3>Бен</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Это Бен</p>
-            </div>
         </div>
-    </div>
-</div>
 
-<!-- Персонаж 5 - Жан -->
-<div id="character-details-5" class="character-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-character">‹</button>
-            <button class="nav-arrow-outside next next-character">›</button>
-        </div>
-        <div class="character-content">
-            <div class="character-image">
-                <img src="https://via.placeholder.com/400x500/8a4a4a/ffffff?text=Жан" alt="Жан">
+        <!-- Герой 5 - Кристиан -->
+        <div id="hero-details-5" class="details hero-details">
+            <div class="details-container">
+                <button class="close-button">×</button>
+                <div class="nav-arrows-outside">
+                    <button class="nav-arrow-outside prev prev-hero">‹</button>
+                    <button class="nav-arrow-outside next next-hero">›</button>
+                </div>
+                <div class="content">
+                    <div class="details-image">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczN6BA0K41fNI1Sbv4izH-x_laV5qnt8FnKkA1PiqLVHwP8LeDHp6JOZ8kIpohuwpIOJWS8KUof178yopGBESDvOHMkeKshq4dMWmHCDDXZNamG2foNS7eejmzar5kTzV80pllH7PFL79dKMx7WVfEpK=w500-h500-s-no-gm?authuser=0" alt="Кристиан">
+                    </div>
+                    <div class="details-description">
+                        <h3>Кристиан</h3>
+                        <div class="status-badge status-alive">Жив</div>
+                        <p><strong>Особенности:</strong> Интеллектуал, перфекционист, аналитик</p>
+                        <p>Кристиан кажется не по годам умным и собранным. Он никогда не действует сгоряча, предпочитая сначала все обдумать и изучить.</p>
+                        <p>К другим он относится со спокойной вежливостью, но за ней чувствуется стена - он никому не доверяет, пока сам не разберет человека по косточкам.</p>
+                        <p>Его подход к убийству можно назвать искусством. Его не интересует простая расправа; ему важно, чтобы все было сделано чисто, красиво и аккуратно. Он получает наслаждение от эстетики идеально проведенного дела. Обгоревший труп приведет его в отчаяние, в то время как безупречная работа будет увенчана его личной меткой - тихим и гордым знаком мастера.</p>
+                    </div>
+                </div>
             </div>
-            <div class="character-description">
-                <h3>Жан</h3>
-                <p><strong>Статус:</strong> Неизвестен</p>
-                <p>Жрец неизвестного Бога, встреченный героями в подземельях замка Северного Королевства.</p>
-                <p>Происхождение и силы - загадка.</p>
-                <p>Настроен на свержение власти демона, отправил героев на задание по поиску артефактов. Знает достаточно, говорит мало, почему - непонятно.</p>
-            </div>
         </div>
-    </div>
-</div>
 
-<!-- Персонаж 6 - Руби -->
-<div id="character-details-6" class="character-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-character">‹</button>
-            <button class="nav-arrow-outside next next-character">›</button>
-        </div>
-        <div class="character-content">
-            <div class="character-image">
-                <img src="https://via.placeholder.com/400x500/8a4a7a/ffffff?text=Руби" alt="Руби">
+        <!-- Герой 6 - Пиф -->
+        <div id="hero-details-6" class="details hero-details">
+            <div class="details-container">
+                <button class="close-button">×</button>
+                <div class="nav-arrows-outside">
+                    <button class="nav-arrow-outside prev prev-hero">‹</button>
+                    <button class="nav-arrow-outside next next-hero">›</button>
+                </div>
+                <div class="content">
+                    <div class="details-image">
+                        <img src="https://via.placeholder.com/400x500/7a7a7a/ffffff?text=Пиф" alt="Пиф">
+                    </div>
+                    <div class="details-description">
+                        <h3>Пиф</h3>
+                        <div class="status-badge status-unknown">Неизвестен</div>
+                    </div>
+                </div>
             </div>
-            <div class="character-description">
-                <h3>Руби</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Сестра Эми, навигатор / рулевой Бриллиантовой Лапки.</p>
-                <p>Пользуется огнестрельным оружием, является самым преданным членом экипажа.</p>
-                <p>Активна и слегка язвительна.</p>
-            </div>
         </div>
-    </div>
-</div>
 
-<!-- Персонаж 7 - Сапфир -->
-<div id="character-details-7" class="character-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-character">‹</button>
-            <button class="nav-arrow-outside next next-character">›</button>
-        </div>
-        <div class="character-content">
-            <div class="character-image">
-                <img src="https://via.placeholder.com/400x500/4a4a6a/ffffff?text=Сапфир" alt="Сапфир">
-            </div>
-            <div class="character-description">
-                <h3>Сапфир</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Девушка-бард, встреченная впервые во Вдуплостане с ледяным ожерельем.</p>
-                <p>В данный момент по неизвестной причине состоит в команде Бриллиантовой лапки.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Персонаж 8 - Толик -->
-<div id="character-details-8" class="character-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-character">‹</button>
-            <button class="nav-arrow-outside next next-character">›</button>
-        </div>
-        <div class="character-content">
-            <div class="character-image">
-                <img src="https://via.placeholder.com/400x500/4a4a8a/ffffff?text=Толик" alt="Толик">
-            </div>
-            <div class="character-description">
-                <h3>Толик</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Демон, захвативший власть в Северном Королевстве, расширяющий его границы, поедая членов королевской семьи.</p>
-                <p>Является покровителем Влады, крайне сомнительной личностью и не шибко уважает своих родителей (как минимум, за выбор имени).</p>
-                <p>Уровень сил неизвестен, в первом столкновении он был способен спокойно разобраться с вашей группой, но кто знает, как поменялся и поменяется в дальнейшем баланс сил.</p>
+        <!-- Герой 7 - Шустрик -->
+        <div id="hero-details-7" class="details hero-details">
+            <div class="details-container">
+                <button class="close-button">×</button>
+                <div class="nav-arrows-outside">
+                    <button class="nav-arrow-outside prev prev-hero">‹</button>
+                    <button class="nav-arrow-outside next next-hero">›</button>
+                </div>
+                <div class="content">
+                    <div class="details-image">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczPSUTiH1RzkEa-op6LgCdki1nLEf-MLM2sbuiYAH7Hz1Tyfc_KlNBw5QcuTsvQt3HVAKEC1_Z72m0EqoBa0quWBcSlD0kgQvbH9WO3Kapj5VFiRIzzY2ch-WI4wKZSG-A2TlKMusd8R9o0I3zddWTnE=w500-h500-s-no-gm?authuser=0" alt="Шустрик">
+                    </div>
+                    <div class="details-description">
+                        <h3>Шустрик</h3>
+                        <div class="status-badge status-dead">Мёртв</div>
+                        <p><strong>Особенности:</strong> IT-специалист из будущего</p>
+                        <p>Был редкой крыской в мире мышей, что делало его особенно узнаваемым. Талантливый IT-специалист из будущего, случайно попавший в средневековый мир мышей благодаря машине времени. Обладая знаниями о технологиях, он быстро заслужил расположение местного Короля, создавая для него различные изобретения.</p>
+                        <p>Со временем крысюк осознал, что хочет помогать не только правителю, но и простым жителям, что создало конфликт интересов. Его любознательность и коммуникабельность помогли ему обрести верных друзей среди местных жителей.</p>
+                        <p>Гибель Шустрика наступила от рук Кристиана, который обезглавил крысюка в то время, когда он под гипнозом печенек катался на качельках.</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
-<!-- Персонаж 9 - Топаз -->
-<div id="character-details-9" class="character-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-character">‹</button>
-            <button class="nav-arrow-outside next next-character">›</button>
-        </div>
-        <div class="character-content">
-            <div class="character-image">
-                <img src="https://via.placeholder.com/400x500/8a8a4a/ffffff?text=Топаз" alt="Топаз">
-            </div>
-            <div class="character-description">
-                <h3>Топаз</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Правая рука Авантюрина.</p>
-                <p>Боцман, обладающий непонятными астральными силами.</p>
-                <p>Молчаливый и отстранённый мышчина.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Персонаж 10 - Циркон -->
-<div id="character-details-10" class="character-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-character">‹</button>
-            <button class="nav-arrow-outside next next-character">›</button>
-        </div>
-        <div class="character-content">
-            <div class="character-image">
-                <img src="https://via.placeholder.com/400x500/8a8a6a/ffffff?text=Циркон" alt="Циркон">
-            </div>
-            <div class="character-description">
-                <h3>Циркон</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Волшебник, археолог и, в целом, мозг команды Бриллиантовой лапки.</p>
-                <p>Замечен за особой привязанностью к  какой-то непонятной книге.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Персонаж 11 - Элиот -->
-<div id="character-details-11" class="character-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-character">‹</button>
-            <button class="nav-arrow-outside next next-character">›</button>
-        </div>
-        <div class="character-content">
-            <div class="character-image">
-                <img src="https://via.placeholder.com/400x500/6a4a8a/ffffff?text=Элиот" alt="Элиот">
-            </div>
-            <div class="character-description">
-                <h3>Элиот</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Лекарь-отшельник-пастух жуков оленей, встреченный на Острове Сердца</p>
-                <p>Желает найти лекарство "от кристаллизации".</p>
-                <p>Изгнан из своей деревни за то, что батя наделал говна.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Персонаж 12 - Эми -->
-<div id="character-details-12" class="character-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-character">‹</button>
-            <button class="nav-arrow-outside next next-character">›</button>
-        </div>
-        <div class="character-content">
-            <div class="character-image">
-                <img src="https://lh3.googleusercontent.com/pw/AP1GczOU7DjVK_VgntSVUUktsHcP3Nykdc9CXkmxCOFKdXhsQq2AUGBZcAUShU1qtnL7mZOQZAGK2Pns9mvDoiWrk9JHY1rc6khVLMSWVIPBKuygyqkX38f6lStStBLpIHeSfbxV1skxGOxKVxGGqkjQ06AC=w715-h953-s-no-gm?authuser=0" alt="Эми">
-            </div>
-            <div class="character-description">
-                <h3>Эми</h3>
-                <p><strong>Статус:</strong> Играет</p>
-                <p>Сестра Руби, картограф Бриллиантовой лапки.</p>
-                <p>Пользуется огнестрельным оружием, является самым преданным членом экипажа.</p>
-                <p>Спокойная и тихая, по крайней мере так кажется.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Персонаж 13 - Мечник -->
-<div id="character-details-13" class="character-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-character">‹</button>
-            <button class="nav-arrow-outside next next-character">›</button>
-        </div>
-        <div class="character-content">
-            <div class="character-image">
-                <img src="https://via.placeholder.com/400x500/4a8a4a/ffffff?text=Мечник" alt="Мечник">
-            </div>
-            <div class="character-description">
-                <h3>Мечник</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Мечник с ебанистически длинной катаной и серебряной шёрсткой.</p>
-                <p>Был встречен в Мидгаре за разрубанием роботов с одного взмаха и за непонятными делами в ходе теракта.</p>
-                <p>В районе шеи татуировка "Чёрного Пламени".</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Персонаж 14 - Заказчик -->
-<div id="character-details-14" class="character-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-character">‹</button>
-            <button class="nav-arrow-outside next next-character">›</button>
-        </div>
-        <div class="character-content">
-            <div class="character-image">
-                <img src="https://via.placeholder.com/400x500/4a8a4a/ffffff?text=Заказчик" alt="Заказчик">
-            </div>
-            <div class="character-description">
-                <h3>Заказчик</h3>
-                <p><strong>Статус:</strong> Жив</p>
-                <p>Заказчик Реликта Гроз, встреченный в Мидгаре.</p>
-                <p>Вооружён двумя клинками на цепях и ебанутым ЧСВ, трезвым замечен не был.</p>
-                <p>На плече татуировка "Чёрного Пламени".</p>
-            </div>
-        </div>
-    </div>
-</div>
-        
-        <h2>Артефакты</h2>
-<div class="artifacts-container">
-    <!-- Бриллиантовая Лапка -->
-    <div class="artifact-frame" data-id="1">
-        <img src="https://via.placeholder.com/120x150/cc66ff/ffffff?text=Лапка" alt="Бриллиантовая Лапка">
-        <div class="artifact-name">Бриллиантовая Лапка</div>
-    </div>
-    
-    <!-- Лотос Льда -->
-    <div class="artifact-frame" data-id="2">
-        <img src="https://via.placeholder.com/120x150/66ccff/ffffff?text=Лотос" alt="Лотос Льда">
-        <div class="artifact-name">Лотос Льда</div>
-    </div>
-    
-    <!-- Огненный кинжал -->
-    <div class="artifact-frame" data-id="3">
-        <img src="https://via.placeholder.com/120x150/ff6666/ffffff?text=Кинжал" alt="Огненный кинжал">
-        <div class="artifact-name">Огненный кинжал</div>
-    </div>
-</div>
-
-<!-- Артефакт 1 - Бриллиантовая Лапка -->
-<div id="artifact-details-1" class="artifact-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-artifact">‹</button>
-            <button class="nav-arrow-outside next next-artifact">›</button>
-        </div>
-        <div class="artifact-content">
-            <div class="artifact-image">
-                <img src="https://via.placeholder.com/400x500/cc66ff/ffffff?text=Бриллиантовая+Лапка" alt="Бриллиантовая Лапка">
-            </div>
-            <div class="artifact-description">
-                <h3>Бриллиантовая Лапка</h3>
-                <p>Корабль, капитаном которого является Авантюрин</p>
-                <p>Была подожжена Кристианом на глазах у Бена, что привело к её затоплению.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Артефакт 2 - Лотос Льда -->
-<div id="artifact-details-2" class="artifact-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-artifact">‹</button>
-            <button class="nav-arrow-outside next next-artifact">›</button>
-        </div>
-        <div class="artifact-content">
-            <div class="artifact-image">
-                <img src="https://via.placeholder.com/400x500/66ccff/ffffff?text=Лотос+Льда" alt="Лотос Льда">
-            </div>
-            <div class="artifact-description">
-                <h3>Лотос Льда</h3>
-                <p>Артефакт, собираемый из нескольких частей, являющейся частью для некого могучего артефакта, который пытался создать Жан для свержения Толика.</p>
-                <p>Точные силы и возможности пока неизвестны.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Артефакт 3 - Огненный кинжал -->
-<div id="artifact-details-3" class="artifact-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-artifact">‹</button>
-            <button class="nav-arrow-outside next next-artifact">›</button>
-        </div>
-        <div class="artifact-content">
-            <div class="artifact-image">
-                <img src="https://via.placeholder.com/400x500/ff6666/ffffff?text=Огненный+кинжал" alt="Огненный кинжал">
-            </div>
-            <div class="artifact-description">
-                <h3>Огненный кинжал</h3>
-                <p>Филигранно спизжен у Толика.</p>
-                <p>Служит для создания артефактов против него, полный потенциал ещё не раскрыт.</p>
-                <p>Можно усилять и даже без этого спокойно расплавляет металлические решётки.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<h2>Территории</h2>
-<div class="artifacts-container">
-    <!-- Вдуплостан -->
-    <div class="artifact-frame" data-id="4">
-        <img src="https://via.placeholder.com/120x150/cc9966/ffffff?text=Вдуплостан" alt="Вдуплостан">
-        <div class="artifact-name">Вдуплостан</div>
-    </div>
-    
-    <!-- Мидгар -->
-    <div class="artifact-frame" data-id="5">
-        <img src="https://via.placeholder.com/120x150/66cc66/ffffff?text=Мидгар" alt="Мидгар">
-        <div class="artifact-name">Мидгар</div>
-    </div>
-    
-    <!-- Шагающая гора -->
-    <div class="artifact-frame" data-id="6">
-        <img src="https://via.placeholder.com/120x150/9966cc/ffffff?text=Гора" alt="Шагающая гора">
-        <div class="artifact-name">Шагающая гора</div>
-    </div>
-</div>
-
-<!-- Территория 1 - Вдуплостан -->
-<div id="artifact-details-4" class="artifact-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-artifact">‹</button>
-            <button class="nav-arrow-outside next next-artifact">›</button>
-        </div>
-        <div class="artifact-content">
-            <div class="artifact-image">
-                <img src="https://via.placeholder.com/400x500/cc9966/ffffff?text=Вдуплостан" alt="Вдуплостан">
-            </div>
-            <div class="artifact-description">
-                <h3>Вдуплостан</h3>
-                <p>Деревня варваров, родом из которой Амьен.</p>
-                <p>Известна низким количеством женщин и высоким количеством Савеличей.</p>
-                <p>Здесь в баре в ходе "концерта" была добыта сердцевина Лотоса и сожжён один Савелич.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Территория 2 - Мидгар -->
-<div id="artifact-details-5" class="artifact-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-artifact">‹</button>
-            <button class="nav-arrow-outside next next-artifact">›</button>
-        </div>
-        <div class="artifact-content">
-            <div class="artifact-image">
-                <img src="https://via.placeholder.com/400x500/66cc66/ffffff?text=Мидгар" alt="Мидгар">
-            </div>
-            <div class="artifact-description">
-                <h3>Мидгар</h3>
-                <p>Столица западного Королевства.</p>
-                <p>Невероятно технологичный город, работающий на силе Реликта Гроз.</p>
-                <p>Здесь была найдена корона - венец Лотоса Льда и устроен ебучий теракт с освобождением реликта.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Территория 3 - Шагающая гора -->
-<div id="artifact-details-6" class="artifact-details">
-    <div class="details-container">
-        <button class="close-button">×</button>
-        <div class="nav-arrows-outside">
-            <button class="nav-arrow-outside prev prev-artifact">‹</button>
-            <button class="nav-arrow-outside next next-artifact">›</button>
-        </div>
-        <div class="artifact-content">
-            <div class="artifact-image">
-                <img src="https://via.placeholder.com/400x500/9966cc/ffffff?text=Шагающая+гора" alt="Шагающая гора">
-            </div>
-            <div class="artifact-description">
-                <h3>Шагающая гора</h3>
-                <p>Некая перемещающая гора где-то на Востоке.</p>
-                <p>Говорят, что местные травы обладают удивительными свойствами.</p>
-            </div>
-        </div>
-    </div>
-</div>
-    <script>
+         <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Обработчики для героев
             const heroFrames = document.querySelectorAll('.hero-frame');
@@ -1120,6 +549,7 @@
                     const selectedDetail = document.getElementById(`hero-details-${heroId}`);
                     if (selectedDetail) {
                         selectedDetail.classList.add('active');
+                        highlightText();
                     }
                 });
             });
@@ -1146,6 +576,7 @@
                     const selectedDetail = document.getElementById(`character-details-${characterId}`);
                     if (selectedDetail) {
                         selectedDetail.classList.add('active');
+                        highlightText();
                     }
                 });
             });
@@ -1172,6 +603,7 @@
                     const selectedDetail = document.getElementById(`artifact-details-${artifactId}`);
                     if (selectedDetail) {
                         selectedDetail.classList.add('active');
+                        highlightText();
                     }
                 });
             });
@@ -1211,75 +643,104 @@
                 const newDetail = document.getElementById(`${type}-details-${newId}`);
                 if (newDetail) {
                     newDetail.classList.add('active');
+                    highlightText();
                 }
             }
             
- // Обработчики для стрелок героев
-        document.querySelectorAll('.prev-hero').forEach(arrow => {
-            arrow.addEventListener('click', () => navigate('prev', 'hero'));
-        });
-
-        document.querySelectorAll('.next-hero').forEach(arrow => {
-            arrow.addEventListener('click', () => navigate('next', 'hero'));
-        });
-
-        document.querySelectorAll('.prev-character').forEach(arrow => {
-            arrow.addEventListener('click', () => navigate('prev', 'character'));
-        });
-
-        document.querySelectorAll('.next-character').forEach(arrow => {
-            arrow.addEventListener('click', () => navigate('next', 'character'));
-        });
-
-        document.querySelectorAll('.prev-artifact').forEach(arrow => {
-            arrow.addEventListener('click', () => navigate('prev', 'artifact'));
-        });
-
-        document.querySelectorAll('.next-artifact').forEach(arrow => {
-            arrow.addEventListener('click', () => navigate('next', 'artifact'));
-        });
-
-        // ↓ ДОБАВЬТЕ ЗДЕСЬ - ВНУТРИ DOMContentLoaded ↓
-        // Обработчики для кнопок закрытия
-        document.querySelectorAll('.close-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const detailsContainer = this.closest('.hero-details, .character-details, .artifact-details');
-                if (detailsContainer) {
-                    detailsContainer.classList.remove('active');
-                }
-                
-                const type = detailsContainer.classList[0].replace('-details', '');
-                const frames = document.querySelectorAll(`.${type}-frame`);
-                frames.forEach(frame => frame.classList.remove('selected'));
+            // Обработчики для стрелок героев
+            document.querySelectorAll('.prev-hero').forEach(arrow => {
+                arrow.addEventListener('click', () => {
+                    navigate('prev', 'hero');
+                    highlightText();
+                });
             });
-        });
 
-        // Также можно закрывать по клику вне области описания
-        document.addEventListener('click', function(event) {
-            if (event.target.classList.contains('hero-details') || 
-                event.target.classList.contains('character-details') || 
-                event.target.classList.contains('artifact-details')) {
-                const detailsContainer = event.target;
-                detailsContainer.classList.remove('active');
-                
-                const type = detailsContainer.classList[0].replace('-details', '');
-                const frames = document.querySelectorAll(`.${type}-frame`);
-                frames.forEach(frame => frame.classList.remove('selected'));
-            }
-        });
+            document.querySelectorAll('.next-hero').forEach(arrow => {
+                arrow.addEventListener('click', () => {
+                    navigate('next', 'hero');
+                    highlightText();
+                });
+            });
 
-        // Закрытие по клавише ESC
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                document.querySelectorAll('.hero-details.active, .character-details.active, .artifact-details.active').forEach(details => {
-                    details.classList.remove('active');
-                    const type = details.classList[0].replace('-details', '');
+            document.querySelectorAll('.prev-character').forEach(arrow => {
+                arrow.addEventListener('click', () => {
+                    navigate('prev', 'character');
+                    highlightText();
+                });
+            });
+
+            document.querySelectorAll('.next-character').forEach(arrow => {
+                arrow.addEventListener('click', () => {
+                    navigate('next', 'character');
+                    highlightText();
+                });
+            });
+
+            document.querySelectorAll('.prev-artifact').forEach(arrow => {
+                arrow.addEventListener('click', () => {
+                    navigate('prev', 'artifact');
+                    highlightText();
+                });
+            });
+
+            document.querySelectorAll('.next-artifact').forEach(arrow => {
+                arrow.addEventListener('click', () => {
+                    navigate('next', 'artifact');
+                    highlightText();
+                });
+            });
+
+            // Обработчики для кнопок закрытия
+            document.querySelectorAll('.close-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const detailsContainer = this.closest('.hero-details, .character-details, .artifact-details');
+                    if (detailsContainer) {
+                        detailsContainer.classList.remove('active');
+                    }
+                    
+                    const type = detailsContainer.classList[0].replace('-details', '');
                     const frames = document.querySelectorAll(`.${type}-frame`);
                     frames.forEach(frame => frame.classList.remove('selected'));
                 });
+            });
+
+            // Также можно закрывать по клику вне области описания
+            document.addEventListener('click', function(event) {
+                if (event.target.classList.contains('hero-details') || 
+                    event.target.classList.contains('character-details') || 
+                    event.target.classList.contains('artifact-details')) {
+                    const detailsContainer = event.target;
+                    detailsContainer.classList.remove('active');
+                    
+                    const type = detailsContainer.classList[0].replace('-details', '');
+                    const frames = document.querySelectorAll(`.${type}-frame`);
+                    frames.forEach(frame => frame.classList.remove('selected'));
+                }
+            });
+
+            // Закрытие по клавише ESC
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    document.querySelectorAll('.hero-details.active, .character-details.active, .artifact-details.active').forEach(details => {
+                        details.classList.remove('active');
+                        const type = details.classList[0].replace('-details', '');
+                        const frames = document.querySelectorAll(`.${type}-frame`);
+                        frames.forEach(frame => frame.classList.remove('selected'));
+                    });
+                }
+            });
+
+            // Функция подсветки текста
+            function highlightText() {
+                const descriptions = document.querySelectorAll('.details-description');
+                descriptions.forEach(desc => {
+                    let html = desc.innerHTML;
+                    // Подсветка статусов и ключевых слов
+                    html = html.replace(/(Жив|Мёртв|Неизвестен|Играет)/g, '<mark class="highlight">$1</mark>');
+                    desc.innerHTML = html;
+                });
             }
         });
-    }); // ← ЭТО закрывающая скобка от DOMContentLoaded
-</script>
+    </script>
 </body>
 </html>
