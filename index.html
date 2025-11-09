@@ -6,139 +6,134 @@
     <title>Герои, Персонажи и Артефакты</title>
     <style>
     * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    body {
-        background-color: #1a1a2e;
-        color: #e6e6e6;
-        padding: 20px;
-    }
-    
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    
-    h1 {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #ffcc00;
-        text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
-    }
-    
-    h2 {
-        color: #ffcc00;
-        margin: 30px 0 15px;
-        border-bottom: 2px solid #ffcc00;
-        padding-bottom: 5px;
-    }
-    
-    .heroes-container, .characters-container, .artifacts-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-        justify-content: center;
-        margin-bottom: 30px;
-    }
-    
-    .hero-frame, .character-frame, .artifact-frame {
-        width: 120px;
-        height: 150px;
-        border: 3px solid #ffcc00;
-        border-radius: 10px;
-        overflow: hidden;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        position: relative;
-        background-color: #16213e;
-    }
-    
-    .hero-frame:hover, .character-frame:hover, .artifact-frame:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 15px rgba(255, 204, 0, 0.7);
-    }
-    
-    .hero-frame.selected, .character-frame.selected, .artifact-frame.selected {
-        border-color: #ffffff;
-        box-shadow: 0 0 20px rgba(255, 51, 51, 0.8);
-    }
-    
-    .hero-frame img, .character-frame img, .artifact-frame img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    
-    .hero-name, .character-name, .artifact-name {
-        position: absolute;
-        bottom: 20px;
-        left: 0;
-        right: 0;
-        background-color: rgba(0, 0, 0, 0.7);
-        color: #ffcc00;
-        text-align: center;
-        padding: 3px;
-        font-size: 12px;
-    }
-    
-    .artifact-name {
-        bottom: 0;
-    }
-    
-    .hero-status, .character-status {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        text-align: center;
-        padding: 3px;
-        font-size: 11px;
-        font-weight: bold;
-    }
-    
-    .artifact-type {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        text-align: center;
-        padding: 3px;
-        font-size: 11px;
-        background-color: rgba(76, 175, 80, 0.8);
-        color: white;
-    }
-    
-    .status-alive {
-        background-color: rgba(76, 175, 80, 0.8);
-        color: white;
-    }
-    
-    .status-dead {
-        background-color: rgba(244, 67, 54, 0.8);
-        color: white;
-    }
-    
-    .status-unknown {
-        background-color: rgba(158, 158, 158, 0.8);
-        color: white;
-    }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-    .status-playing {
-    background-color: rgba(255, 105, 180, 0.8); /* Розовый цвет */
+body {
+    background-color: #1a1a2e;
+    color: #e6e6e6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ffcc00;
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+}
+
+h2 {
+    color: #ffcc00;
+    margin: 30px 0 15px;
+    border-bottom: 2px solid #ffcc00;
+    padding-bottom: 5px;
+}
+
+/* Общие стили для контейнеров */
+.heroes-container,
+.characters-container,
+.artifacts-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+/* Общие стили для рамок */
+.frame {
+    width: 120px;
+    height: 150px;
+    border: 3px solid #ffcc00;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    background-color: #16213e;
+}
+
+.frame:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 204, 0, 0.7);
+}
+
+.frame.selected {
+    border-color: #ffffff;
+    box-shadow: 0 0 20px rgba(255, 51, 51, 0.8);
+}
+
+.frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Общие стили для имен */
+.name {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ffcc00;
+    text-align: center;
+    padding: 3px;
+    font-size: 12px;
+}
+
+.artifact-name {
+    bottom: 0;
+}
+
+/* Общие стили для статусов */
+.status {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 3px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.artifact-type {
+    background-color: rgba(76, 175, 80, 0.8);
     color: white;
-    }
-    /* Новые стили для контейнера и стрелок */
-    .details-container {
-        position: relative;
-        width: 100%;
-    }
-    
-    /* Основные контейнеры */
-.hero-details, .character-details, .artifact-details {
+}
+
+/* Цвета статусов */
+.status-alive {
+    background-color: rgba(76, 175, 80, 0.8);
+    color: white;
+}
+
+.status-dead {
+    background-color: rgba(244, 67, 54, 0.8);
+    color: white;
+}
+
+.status-unknown {
+    background-color: rgba(158, 158, 158, 0.8);
+    color: white;
+}
+
+.status-playing {
+    background-color: rgba(255, 105, 180, 0.8);
+    color: white;
+}
+
+/* Общие стили для деталей */
+.details {
     display: none;
     margin-top: 30px;
     background-color: #16213e;
@@ -149,18 +144,18 @@
     position: relative;
 }
 
-.hero-details.active, .character-details.active, .artifact-details.active {
+.details.active {
     display: block;
 }
 
 .details-container {
     position: relative;
     width: 100%;
-    z-index: 1; /* Контент выше */
+    z-index: 1;
 }
 
-/* Контентные блоки */
-.hero-content, .character-content, .artifact-content {
+/* Общие стили для контента */
+.content {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -168,7 +163,7 @@
     position: relative;
 }
 
-.hero-image, .character-image, .artifact-image {
+.details-image {
     flex: 1;
     min-width: 300px;
     border: 2px solid #ffcc00;
@@ -176,13 +171,13 @@
     overflow: hidden;
 }
 
-.hero-image img, .character-image img, .artifact-image img {
+.details-image img {
     width: 100%;
     height: auto;
     display: block;
 }
 
-.hero-description, .character-description, .artifact-description {
+.details-description {
     flex: 2;
     min-width: 300px;
     padding: 15px;
@@ -191,7 +186,7 @@
     line-height: 1.6;
 }
 
-/* Стрелки сбоку от рамки во весь размер */
+/* Стрелки навигации */
 .nav-arrows-outside {
     position: absolute;
     top: 0;
@@ -205,11 +200,11 @@
 }
 
 .nav-arrow-outside {
-    background-color: #ffcc00; /* Непрозрачный желтый */
+    background-color: #ffcc00;
     color: #1a1a2e;
     border: none;
     width: 50px;
-    height: 100%; /* Во всю высоту рамки */
+    height: 100%;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
@@ -236,32 +231,7 @@
     box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
 }
 
-/* Обеспечиваем правильное отображение контента */
-.details-container {
-    position: relative;
-    width: 100%;
-    z-index: 1;
-}
-
-.hero-content, .character-content, .artifact-content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
-    position: relative;
-}
-
-@media (max-width: 768px) {
-    .nav-arrows-outside {
-        left: -40px;
-        right: -40px;
-    }
-    
-    .nav-arrow-outside {
-        width: 40px;
-        font-size: 22px;
-    }
-}
+/* Кнопка закрытия */
 .close-button {
     position: absolute;
     top: 10px;
@@ -285,6 +255,19 @@
 .close-button:hover {
     background-color: #ff6666;
     transform: scale(1.1);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .nav-arrows-outside {
+        left: -40px;
+        right: -40px;
+    }
+    
+    .nav-arrow-outside {
+        width: 40px;
+        font-size: 22px;
+    }
 }
 </style>
 </head>
@@ -1173,6 +1156,8 @@
             function navigate(direction, type) {
                 const frames = document.querySelectorAll(`.${type}-frame`);
                 const details = document.querySelectorAll(`.${type}-details`);
+
+                 if (frames.length === 0) return;
                 
                 // Находим активный элемент
                 let activeIndex = -1;
